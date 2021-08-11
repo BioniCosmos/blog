@@ -1,0 +1,25 @@
+<%- js('js/jquery-3.4.1.min.js') %>
+
+<% if (theme.fancybox){ %>
+  <%- js('fancybox/jquery.fancybox.min.js') %>
+<% } %>
+
+<%- js('js/script') %>
+
+<script>
+  function switchMode() {
+    if (html.dataset.theme == 'dark') {
+      toggleTheme('light');
+      localStorage.theme = 'light';
+    }
+    else {
+      toggleTheme('dark');
+      localStorage.theme = 'dark';
+    }
+  }
+  const html = document.getElementsByTagName('html')[0];
+  const toggleTheme = (theme) => {
+    html.dataset.theme = theme;
+  }
+  toggleTheme(localStorage.theme);
+</Script>

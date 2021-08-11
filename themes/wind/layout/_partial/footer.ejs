@@ -1,0 +1,11 @@
+<footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <% if (theme.copyright){ %>
+        <%- render(theme.copyright, 'pug'); %>
+      <% } %>
+      &copy; 2019-<%= date(new Date(), 'YYYY') %> <%= config.author || config.title %><br>
+      Moe is the cosmos.
+    </div>
+  </div>
+</footer>
