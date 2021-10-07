@@ -47,7 +47,11 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: wind
-
 markdown:
   plugins:
-    - markdown-it-footnote
+    - markdown-it-sub
+    - markdown-it-sup
+lazyload:
+  enable: true
+  loadingImg:
+  preloadRatio: 3

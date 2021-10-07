@@ -40,7 +40,7 @@
 
       if (title) $(this).after('<span class="caption">' + title + '</span>');
 
-      $(this).wrap('<a href="' + this.src + '" data-fancybox=\"gallery\" data-caption="' + title + '"></a>')
+      $(this).wrap('<a href="' + this.src + '" data-fancybox=\"gallery\"></a>')
     });
 
     $(this).find('.fancybox').each(function(){

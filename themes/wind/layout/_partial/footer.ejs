@@ -1,11 +1,8 @@
 <footer id="footer">
   <div class="outer">
     <div id="footer-info" class="inner">
-      <% if (theme.copyright){ %>
-        <%- render(theme.copyright, 'pug'); %>
-      <% } %>
       &copy; 2019-<%= date(new Date(), 'YYYY') %> <%= config.author || config.title %><br>
-      Moe is the cosmos.
+      <a href="https://unsplash.com/photos/xXiKQ2AavlY">The background photo</a> by <a href="https://unsplash.com/@clarissemeyer?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Clarisse Meyer</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a> | Moe is the cosmos.
     </div>
   </div>
 </footer>
