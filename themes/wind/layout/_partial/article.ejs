@@ -1,7 +1,4 @@
 <article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <%- partial('post/category') %>
-  </div>
   <div class="article-inner">
     <%- partial('post/gallery') %>
     <% if (post.link || post.title){ %>
@@ -19,9 +16,6 @@
     <% if (index){ %>
       <div class="article-footer">
         <time><%= date(post.date) %></time>
-        <% if (post.excerpt){ %>
-          <a href="<%- url_for(post.path) %>#more" class="article-more-link"><%= __('excerpt_link') %></a>  
-        <% } %>
       </div>
     <% } %>
   </div>
