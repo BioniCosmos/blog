@@ -50,7 +50,7 @@ network:
             dhcp6: false
             link-local: [] # 停止自动获取 IP 地址
             accept-ra: false # 同时不接受 IPv6 地址的广播
-            # optional: true # 值为“真”时，开机时不等待获取到网络。这里作为路由器，我就注释掉了
+            # optional: true # 值为「真」时，开机时不等待获取到网络。这里作为路由器，我就注释掉了
             addresses:
                 - 192.168.0.5/24 # IP 地址，注意有子网长度，相当于 IP 地址 + 子网掩码
             gateway4: 192.168.0.1 # 网关地址
@@ -193,7 +193,7 @@ $ wget https://install.direct/go.sh
       "protocol": "freedom",
       "streamSettings": {
         "sockopt": {
-          "mark": 2 // 一个可爱的小标记，数字自定义（可能有范围，使用“2”即可），后面能用到
+          "mark": 2 // 一个可爱的小标记，数字自定义（可能有范围，使用「2」即可），后面能用到
         }
       }
     },
@@ -281,7 +281,7 @@ $ wget https://install.direct/go.sh
 
 配置文件虽然很长，但是配合注释来看比较好理解，请根据实际情况进行修改。需要注意的是，如果在 VSCode、Vim 等编辑器中修改本文件，可能会对有注释的地方报错，这是因为 JSON 格式的文件理论上不支持注释，然而 V2Ray 程序却支持，所以不删除注释也不会影响正常使用。
 
-另外，上面的配置最后有几个包含“一些想要”注释开头的数组（即中括号“`[]`”内），其中的内容需要按照实际情况进行修改，这里我分享一下自用的规则：[`config_routing.json`](https://cloud.moecm.com/#/s/p6U5)，下载后补充到上面配置文件中即可。这里需要注意的是，我分享的规则中的 Block 部分由于过于强力，可能会导致一些网站无法正常使用（已发现并修改：B 站登录界面、优酷播放界面），所以介意的话可以删除这一部分。如果想要使用，还要解决这个问题，请在网页功能无法正常使用时打开浏览器的开发人员工具，里面应该会提示某一域名（IP）无法访问的错误，之后在配置中查找此域名（IP）并将其删除即可。
+另外，上面的配置最后有几个包含「一些想要」注释开头的数组（即中括号「`[]`」内），其中的内容需要按照实际情况进行修改，这里我分享一下自用的规则：[`config_routing.json`](https://cloud.moecm.com/#/s/p6U5)，下载后补充到上面配置文件中即可。这里需要注意的是，我分享的规则中的 Block 部分由于过于强力，可能会导致一些网站无法正常使用（已发现并修改：B 站登录界面、优酷播放界面），所以介意的话可以删除这一部分。如果想要使用，还要解决这个问题，请在网页功能无法正常使用时打开浏览器的开发人员工具，里面应该会提示某一域名（IP）无法访问的错误，之后在配置中查找此域名（IP）并将其删除即可。
 
 如果以上步骤都做好了，那么就可以保存退出了。
 
@@ -300,11 +300,11 @@ $ wget https://install.direct/go.sh
 [Service]
 …
 CapabilityBoundingSet=CAP_NET_BIND_SERVICE CAP_NET_RAW CAP_NET_ADMIN
-# 4.23.1 需要在 “CapabilityBoundingSet” 的最后添加 “CAP_NET_ADMIN”，否则透明代理无法正常使用
+# 4.23.1 需要在 「CapabilityBoundingSet」 的最后添加 「CAP_NET_ADMIN」，否则透明代理无法正常使用
 …
 LimitNPROC=500
 LimitNOFILE=1000000
-# 修改后解决日志中出现非常多“too many open files”的问题
+# 修改后解决日志中出现非常多「too many open files」的问题
 ```
 
 ```shell
@@ -415,7 +415,7 @@ network:
             dhcp6: false
             link-local: [] # 停止自动获取 IP 地址
             accept-ra: false # 同时不接受 IPv6 地址的广播
-            # optional: true # 值为“真”时，开机时不等待获取到网络。这里作为路由器，我就注释掉了
+            # optional: true # 值为「真」时，开机时不等待获取到网络。这里作为路由器，我就注释掉了
             addresses:
                 - 192.168.0.5/24 # IP 地址，注意有子网长度，相当于 IP 地址 + 子网掩码
             gateway4: 192.168.0.1 # 网关地址
@@ -447,7 +447,7 @@ iptables 的配置是最关键的一步，只有这里配置完成后，透明�
 配置策略路由：
 
 ```shell
-ip rule add fwmark 1 table 100 # 一个不可爱的小标记“1”，理论自定义，其他未测试
+ip rule add fwmark 1 table 100 # 一个不可爱的小标记「1」，理论自定义，其他未测试
 ip route add local default dev lo table 100
 ```
 
