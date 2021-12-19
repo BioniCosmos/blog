@@ -31,27 +31,6 @@
     stopSearchAnim();
   });
 
-  // Caption
-  $('.article-entry').each(function(i){
-    $(this).find('img').each(function(){
-      if ($(this).parent().hasClass('fancybox') || $(this).parent().is('a')) return;
-
-      var title = this.title;
-
-      if (title) $(this).after('<span class="caption">' + title + '</span>');
-
-      $(this).wrap('<a href="' + this.src + '" data-fancybox=\"gallery\"></a>')
-    });
-
-    $(this).find('.fancybox').each(function(){
-      $(this).attr('rel', 'article' + i);
-    });
-  });
-
-  if ($.fancybox){
-    $('.fancybox').fancybox();
-  }
-
   // Mobile nav
   var $container = $('#container'),
     isMobileNavAnim = false,

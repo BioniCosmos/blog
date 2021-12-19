@@ -17,7 +17,7 @@ date: 2020-07-27 13:40
 
 商家支持多种方式付款，其中使用支付宝付款时（其他方式不清楚），虽然页面上标识的货币单位是 USD，但实际上却以 CAD 加元的汇率进行换算。以下图片是我本月续费的价格，我所购买的是最低档的配置。
 
-![网站上标明的价格和支付宝实际支付时价格的比较](../images/personal-cloud-storage-with-cloudreve-and-aria2/the-difference-between-the-marked-price-and-the-actual-price.png)
+![网站上标明的价格和支付宝实际支付时价格的比较](../images/personal-cloud-storage-with-cloudreve-and-aria2/the-difference-between-the-marked-price-and-the-actual-price.webp)
 
 1 CAD = 5.21 CNY (Jul 22, 11:37 UTC)，如此来看，这个价格已经相当便宜了。
 

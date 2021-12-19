@@ -2,7 +2,7 @@
 title: 浮生若梦，万物皆虚⸺第一篇（2020）博客年终总结
 permalink: /the-annual-review-of-2020/
 date: 2020-12-31 23:30
-photo: ../images/the-annual-review-of-2020/the-annual-review-of-2020.png
+photo: ../images/the-annual-review-of-2020/the-annual-review-of-2020.webp
 ---
 这是一篇千字左右的年终总结，也是我的第一篇年终总结，还是一篇蕴藏着我的心声的年终总结。
 

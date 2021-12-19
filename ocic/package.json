@@ -1,0 +1,9 @@
+{
+  "name": "ocic",
+  "main": "index.js",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "cwebp-bin": "^7.0.1"
+  }
+}

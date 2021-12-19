@@ -1,25 +1,64 @@
-<%- js('js/jquery-3.4.1.min.js') %>
-
-<% if (theme.fancybox){ %>
-  <%- js('fancybox/jquery.fancybox.min.js') %>
-<% } %>
-
-<%- js('js/script') %>
-
+<script src="/js/jquery-3.4.1.min.js"></script>
 <script>
-  function switchMode() {
-    if (html.dataset.theme == 'dark') {
-      toggleTheme('light');
-      localStorage.theme = 'light';
+    function loadScript(url, isModule, callback) {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        if (isModule) {
+            script.type = 'module'
+        }
+        if (callback) {
+            script.addEventListener('load', () => {
+                callback()
+            })
+        }
+        document.body.appendChild(script)
     }
-    else {
-      toggleTheme('dark');
-      localStorage.theme = 'dark';
+
+    loadScript('/js/script.js')
+
+    if (document.getElementsByClassName('article-entry')[0]) {
+        const imgs = document.getElementsByClassName('article-entry')[0].getElementsByTagName('img')
+        Array.from(imgs).forEach(img => {
+            const title = img.getAttribute('title')
+            if (title) {
+                const caption = document.createElement('span')
+                caption.innerHTML = title
+                caption.setAttribute('class', 'caption')
+                img.parentElement.appendChild(caption)
+            }
+        })
     }
-  }
-  const html = document.getElementsByTagName('html')[0];
-  const toggleTheme = (theme) => {
-    html.dataset.theme = theme;
-  }
-  toggleTheme(localStorage.theme);
-</Script>
+
+    window.lazyLoadOptions = {}
+    loadScript('https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.5.0/dist/lazyload.min.js')
+
+    loadScript('https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js', false, () => {
+        mediumZoom('.medium-zoom', {
+            margin: 24,
+            background: '#000000c0'
+        })
+    })
+
+    setTimeout(() => {
+        const fonts = document.createElement('link')
+        fonts.href = '/css/fonts.css'
+        fonts.rel = 'stylesheet'
+        document.getElementsByTagName('head')[0].appendChild(fonts)
+    }, 3000)
+
+    function switchMode() {
+        if (html.dataset.theme === 'dark') {
+            toggleTheme('light')
+            localStorage.theme = 'light'
+        } else {
+            toggleTheme('dark')
+            localStorage.theme = 'dark'
+        }
+    }
+    const html = document.getElementsByTagName('html')[0]
+    const toggleTheme = theme => {
+        html.dataset.theme = theme
+    }
+    toggleTheme(localStorage.theme)
+</script>

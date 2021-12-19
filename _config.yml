@@ -51,7 +51,3 @@ markdown:
   plugins:
     - markdown-it-sub
     - markdown-it-sup
-lazyload:
-  enable: true
-  loadingImg:
-  preloadRatio: 3

@@ -58,11 +58,11 @@ font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Microso
 - 省略号：省略号应上下居中，但由于中文和英文的省略号位于同一码位，而英文中的省略号应处于下部，所以其样式应通过字体进行控制。另外，省略号和目前常用的破折号输入方法一样，是通过同时输入两个连续的 U+2026 HORIZONTAL ELLIPSIS「…」实现的，只不过影响不大，可以接受。
 - 连接号：连接号分为短横线「–」、一字线「—」、浪纹线「～」三种，其中浪纹线拥有独立码位，无需讨论。而按照 W3C《中文排版需求》的推荐，短横线和一字线应分别使用 U+2013 EN DASH「–」和 U+2014 EM DASH「—」[^6]，这种思路显然是以「连接号中的短横线比汉字『一』略短，占半个字位置；一字线比汉字『一』略长，占一个字位置……」[^4]中规定的形式为基础，而不是以 Unicode 中符号本身的含义为基础。虽然相似，但在长度和位置方面仍不规范。
 
-  ![通过 lang 属性切换思源黑体的显示样式，中文下的 EM DASH 更细更长且上下居中，可以与汉字「一」对齐。](../images/the-blog-font-setting-scheme/the-difference-between-chinese-en-dash-and-english-em-dash.png)
+  ![通过 lang 属性切换思源黑体的显示样式，中文下的 EM DASH 更细更长且上下居中，可以与汉字「一」对齐。](../images/the-blog-font-setting-scheme/the-difference-between-chinese-en-dash-and-english-em-dash.webp)
 
   奇怪的是，在思源黑体中，除了 U+2014，其他横线样式的符号只在韩文中做了处理。[^7]另外，即使是 U+2014 也不完全符合规范。经过测试，苹方的表现较好。
 
-  ![思源黑体、苹方、冬青黑体下 EN DASH 和 EM DASH 的样式比较，苹方和冬青黑体可以做到 EM DASH 比汉字「一」略长。](../images/the-blog-font-setting-scheme/the-difference-between-en-dash-and-em-dash-of-three-fonts.png)
+  ![思源黑体、苹方、冬青黑体下 EN DASH 和 EM DASH 的样式比较，苹方和冬青黑体可以做到 EM DASH 比汉字「一」略长。](../images/the-blog-font-setting-scheme/the-difference-between-en-dash-and-em-dash-of-three-fonts.webp)
 
 ## 结论
 
@@ -75,7 +75,7 @@ body {
     font-family: "Noto Sans CJK SC", "Source Han Sans SC", "Source Han Sans CN", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
-body:lang(en-US) {
+:lang(en-US) {
     font-family: "Helvetica Neue", Roboto, "Segoe UI", SegoeUI, Helvetica, Arial, sans-serif;
 }
 ```
