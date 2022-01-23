@@ -3,9 +3,9 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Daniel's Blog
-subtitle: Here's BioniCosmos!
-description: Here's BioniCosmos!
+title: Daniel’s Blog
+subtitle: Here’s BioniCosmos!
+description: Here’s BioniCosmos!
 author: Daniel Ding
 language: zh-CN
 
@@ -36,12 +36,6 @@ date_format: YYYY-MM-DD
 time_format: HH:mm:ss
 ## updated_option supports 'mtime', 'date', 'empty'
 updated_option: 'date'
-
-# Include / Exclude file(s)
-## include:/exclude: options only apply to the 'source/' folder
-include:
-exclude:
-ignore:
 
 # Extensions
 ## Plugins: https://hexo.io/plugins/
