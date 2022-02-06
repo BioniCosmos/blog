@@ -71,15 +71,6 @@ body
   .mobile-nav-on &
     left: mobile-nav-width
 
-html
-  transition: filter 300ms
-
-html[data-theme='dark']
-  filter: invert(1) hue-rotate(180deg)
-
-html[data-theme='dark'] img, html[data-theme='dark'] header
-  filter: invert(1) hue-rotate(180deg)
-
 @media (min-width: 992px)
   .outer
     max-width: 952px;

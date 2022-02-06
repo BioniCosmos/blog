@@ -1,4 +1,3 @@
-<script src="/js/jquery-3.4.1.min.js"></script>
 <script>
     function loadScript(url, isModule, callback) {
         const script = document.createElement('script')
@@ -15,7 +14,28 @@
         document.body.appendChild(script)
     }
 
-    loadScript('/js/script.js')
+    const container = document.getElementById('container')
+    const mobileNavAnimDuration = 200
+    let isMobileNavAnim = false
+
+    const startMobileNavAnim = () => isMobileNavAnim = true
+    const stopMobileNavAnim = () => setTimeout(() => isMobileNavAnim = false, mobileNavAnimDuration)
+
+    document.getElementById('main-nav-toggle').addEventListener('click', () => {
+        if (isMobileNavAnim) {
+            return
+        }
+        startMobileNavAnim()
+        container.classList.contains('mobile-nav-on') ? container.classList.remove('mobile-nav-on') : container.classList.add('mobile-nav-on')
+        stopMobileNavAnim()
+    })
+
+    document.getElementById('wrap').addEventListener('click', () => {
+        if (isMobileNavAnim || !container.classList.contains('mobile-nav-on')) {
+            return
+        }
+        container.classList.remove('mobile-nav-on')
+    })
 
     if (document.getElementsByClassName('article-entry')[0]) {
         const imgs = document.getElementsByClassName('article-entry')[0].getElementsByTagName('img')
@@ -47,18 +67,27 @@
         document.getElementsByTagName('head')[0].appendChild(fonts)
     }, 3000)
 
-    function switchMode() {
-        if (html.dataset.theme === 'dark') {
-            toggleTheme('light')
-            localStorage.theme = 'light'
+    loadScript('/js/darkreader.js', false, () => {
+        if (sessionStorage.getItem('theme')) {
+            sessionStorage.getItem('theme') === 'dark' ? DarkReader.enable() : DarkReader.disable()
         } else {
-            toggleTheme('dark')
-            localStorage.theme = 'dark'
+            DarkReader.auto()
         }
+
+        document.getElementById('dark-switch').addEventListener('click', () => {
+            if (DarkReader.isEnabled()) {
+                DarkReader.disable()
+                sessionStorage.setItem('theme', 'light')
+            } else {
+                DarkReader.enable()
+                sessionStorage.setItem('theme', 'dark')
+            }
+        })
+    })
+
+    if (document.getElementById('comment')) {
+        const data = document.getElementById('comment').dataset
+        data.articleId = data.articleId.substring(1, data.articleId.length - 1)
+        loadScript('/js/wind-comment.umd.min.js')
     }
-    const html = document.getElementsByTagName('html')[0]
-    const toggleTheme = theme => {
-        html.dataset.theme = theme
-    }
-    toggleTheme(localStorage.theme)
 </script>
