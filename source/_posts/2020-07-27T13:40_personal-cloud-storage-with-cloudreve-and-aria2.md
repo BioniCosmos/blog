@@ -138,7 +138,7 @@ $ ./cloudreve
 
 创建 `/etc/systemd/system/cloudreve.service`。
 
-```ini
+```systemd
 [Unit]
 Description=Cloudreve
 Documentation=https://docs.cloudreve.org
@@ -202,7 +202,7 @@ http-accept-gzip=true
 
 之后创建文件 `/etc/systemd/system/aria2.service`。
 
-```ini
+```systemd
 [Unit]
 Description=aria2
 

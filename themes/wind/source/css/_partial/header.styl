@@ -115,51 +115,42 @@ $nav-link
   &:before
     content: "\f002"
 
-#search-form-wrap
-  position: absolute
-  top: 15px
-  width: 150px
-  height: 30px
-  right: -150px
-  opacity: 0
-  transition: 0.2s ease-out
-  &.on
-    opacity: 1
-    right: 0
-  @media mq-mobile
-    width: 100%
-    right: -100%
+.dropdown
+  position: relative
+  perspective: 1000px
+  &:hover
+    background: #2980b9
+    cursor: pointer
+  &:hover .dropdown-menu a
+    display: block
 
-.search-form
+.dropdown-menu
   position: absolute
-  top: 0
+  top: 100%
   left: 0
-  right: 0
-  background: #fff
-  padding: 5px 15px
-  border-radius: 15px
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3)
+  for num in (1..5)
+    .dropdown-item-{num}
+      animation: rotateZ 300ms (num * 60ms) ease-in-out forwards
+  a
+    display: none
+    background-color: #34495e
+    padding: 15px 20px
+    opacity: 0
+    color: white
+    text-decoration: none
+    &:hover
+      background-color: #2980b9
 
-.search-form-input
-  border: none
-  background: none
-  color: color-default
-  width: 100%
-  font: 13px font-sans
-  outline: none
-  &::-webkit-search-results-decoration
-  &::-webkit-search-cancel-button
-    -webkit-appearance: none
-
-.search-form-submit
-  position: absolute
-  top: 50%
-  right: 10px
-  margin-top: -7px
-  font: 13px font-icon
-  border: none
-  background: none
-  color: #bbb
-  cursor: pointer
-  &:hover, &:focus
-    color: #777
+@keyframes rotateZ {
+  0% {
+    opacity: 0;
+    transform: translateZ(290px);
+  }
+  80% {
+    transform: translateZ(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateZ(0);
+  }
+}

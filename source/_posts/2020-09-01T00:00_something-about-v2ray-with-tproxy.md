@@ -157,7 +157,7 @@ max_ttl = 86400
 
 至于最后一个 `cnip.txt` 文件自带，所以无需配置，不过可以定期通过以下指令生成最新列表：[^4]
 
-```shell
+```shell-session
 $ wget -c http://ftp.apnic.net/stats/apnic/delegated-apnic-latest
 $ cat delegated-apnic-latest | awk -F '|' '/CN/&&/ipv4/ {print $4 "/" 32-log($5)/log(2)}' > cnip.txt
 ```
@@ -245,7 +245,7 @@ $ cat delegated-apnic-latest | awk -F '|' '/CN/&&/ipv4/ {print $4 "/" 32-log($5)
 
 无论是 iptables 还是 nftables，都需要先配置策略路由。
 
-```shell
+```shell-session
 # ip route add local default dev lo table 100 # 添加路由表 100
 # ip rule add fwmark 1 table 100 # 为路由表 100 设定规则
 ```
@@ -312,7 +312,7 @@ define CHINA_IP = {
 
 之后编辑 `/lib/systemd/system/nftables.service`。
 
-```ini
+```systemd
 [Unit]
 Description=nftables
 Documentation=man:nft(8) http://wiki.nftables.org
@@ -337,7 +337,7 @@ WantedBy=sysinit.target
 
 最后设定开机并立即启动即可。
 
-```shell
+```shell-session
 # systemctl enable nftables --now
 ```
 
@@ -385,7 +385,7 @@ V2Ray 和 V2Fly 有什么关系？简单来说，V2Fly 是 V2Ray 的社区版。
 
 > 目前 V2Ray 项目组已经将老脚本废弃，转为使用新脚本。
 
-```shell
+```shell-session
 $ wget https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh
 # bash install-release.sh
 ```

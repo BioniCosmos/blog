@@ -67,27 +67,24 @@
         document.getElementsByTagName('head')[0].appendChild(fonts)
     }, 3000)
 
-    loadScript('/js/darkreader.js', false, () => {
-        if (sessionStorage.getItem('theme')) {
-            sessionStorage.getItem('theme') === 'dark' ? DarkReader.enable() : DarkReader.disable()
+    document.getElementById('dark-switch').addEventListener('click', () => {
+        if (DarkReader.isEnabled()) {
+            DarkReader.disable()
+            sessionStorage.setItem('theme', 'light')
         } else {
-            DarkReader.auto()
+            DarkReader.enable()
+            sessionStorage.setItem('theme', 'dark')
         }
-
-        document.getElementById('dark-switch').addEventListener('click', () => {
-            if (DarkReader.isEnabled()) {
-                DarkReader.disable()
-                sessionStorage.setItem('theme', 'light')
-            } else {
-                DarkReader.enable()
-                sessionStorage.setItem('theme', 'dark')
-            }
-        })
     })
 
+    loadScript('/js/prism.js')
+
     if (document.getElementById('comment')) {
-        const data = document.getElementById('comment').dataset
-        data.articleId = data.articleId.substring(1, data.articleId.length - 1)
+        const comment = document.getElementById('comment')
+        comment.dataset.articleId = comment.dataset.articleId.substring(18, comment.dataset.articleId.length - 1)
+        if (!document.getElementById('article-nav')) {
+            comment.style.marginTop = '50px'
+        }
         loadScript('/js/wind-comment.umd.min.js')
     }
 </script>

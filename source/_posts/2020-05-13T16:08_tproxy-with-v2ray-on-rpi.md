@@ -4,9 +4,11 @@ permalink: /tproxy-with-v2ray-on-rpi/
 date: 2020-05-13 16:08
 ---
 
-这篇文章主要是记录如何在将树莓派作为旁路由，配合 V2Ray，搭建透明代理，以实现局域网内设备的无感翻墙。
+> 本文已废弃，重构后的最新版本请移步 [Xray 配置透明代理](/v2ray/xray-transparent-proxy/)，感谢您的配合。
 
 <!--more-->
+
+这篇文章主要是记录如何在将树莓派作为旁路由，配合 V2Ray，搭建透明代理，以实现局域网内设备的无感翻墙。
 
 ## 1. 刷写系统
 
@@ -14,7 +16,7 @@ date: 2020-05-13 16:08
 
 ## 2. 更改 APT 软件源
 
-```bash
+```shell-session
 # apt edit-sources
 ```
 
@@ -28,7 +30,7 @@ date: 2020-05-13 16:08
 
 修改后保存并退出即可。之后运行：
 
-```shell
+```shell-session
 # apt update && apt upgrade
 ```
 
@@ -38,7 +40,7 @@ date: 2020-05-13 16:08
 
 新版 Ubuntu 默认使用 Netplan + Systemd-networkd 管理网络，而 Netplan 文件使用了可读性高且人性化的 YAML 格式文件。
 
-```shell
+```shell-session
 # vim /etc/netplan/50-cloud-init.yaml
 ```
 
@@ -62,7 +64,7 @@ network:
 
 保存退出后运行：
 
-```shell
+```shell-session
 # netplan apply
 ```
 
@@ -70,7 +72,7 @@ network:
 
 使用：
 
-```shell
+```shell-session
 $ ip addr show
 ```
 
@@ -85,7 +87,7 @@ net.ipv4.ip_forward=1
 …
 ```
 
-```shell
+```shell-session
 # sysctl -p
 ```
 
@@ -95,7 +97,7 @@ net.ipv4.ip_forward=1
 
 使用官方脚本即可*（实话说这域名不错）*。
 
-```sh
+```shell-session
 $ wget https://install.direct/go.sh
 # bash go.sh
 ```
@@ -104,7 +106,7 @@ $ wget https://install.direct/go.sh
 
 运行
 
-```shell
+```shell-session
 # bash go.sh -h
 ```
 
@@ -287,7 +289,7 @@ $ wget https://install.direct/go.sh
 
 现在运行
 
-```shell
+```shell-session
 # /usr/bin/v2ray/v2ray -config /etc/v2ray/config.json -test
 ```
 
@@ -295,7 +297,7 @@ $ wget https://install.direct/go.sh
 
 最后，需要修改一下 `/etc/systemd/system/v2ray.service` 文件，以免运行时出现错误：
 
-```ini
+```systemd
 …
 [Service]
 …
@@ -307,7 +309,7 @@ LimitNOFILE=1000000
 # 修改后解决日志中出现非常多「too many open files」的问题
 ```
 
-```shell
+```shell-session
 # systemctl daemon-reload
 ```
 
@@ -317,13 +319,13 @@ LimitNOFILE=1000000
 
 最后重启 V2Ray。
 
-```shell
+```shell-session
 # systemctl restart v2ray
 ```
 
 之后可以使用 cURL 测试配置是否正确（所以建议添加 SOCKS 代理以便测试）。
 
-```shell
+```shell-session
 $ curl -x socks5h://127.0.0.1:1080 google.com
 ```
 
@@ -389,21 +391,21 @@ max_ttl = 86400  # 最大ttl，单位为秒
 
 需要注意的是，如果系统使用了 Systemd-resolved 或其他监听 53 端口的 DNS 解析服务，需要将其停止，否则 Telescope DNS 无法启动。
 
-```shell
+```shell-session
 # systemctl stop systemd-resolved
 # systemctl disable systemd-resolved
 ```
 
 之后就可以开启 Telescope DNS 并设置自启。
 
-```shell
+```shell-session
 # systemctl start ts-dns
 # systemctl enable ts-dns
 ```
 
 再之后需要修改 `/etc/netplan/50-cloud-init.yaml` 和 `/etc/resolv.conf`。建议删除原有的 `resolv.conf` 文件并重新创建。
 
-```shell
+```shell-session
 # vim /etc/netplan/50-cloud-init.yaml
 ```
 
@@ -425,7 +427,7 @@ network:
     version: 2
 ```
 
-```shell
+```shell-session
 # netplan apply
 # rm /etc/resolv.conf
 # vim /etc/resolv.conf
@@ -446,14 +448,14 @@ iptables 的配置是最关键的一步，只有这里配置完成后，透明�
 
 配置策略路由：
 
-```shell
+```shell-session
 ip rule add fwmark 1 table 100 # 一个不可爱的小标记「1」，理论自定义，其他未测试
 ip route add local default dev lo table 100
 ```
 
 配置防火墙：
 
-```shell
+```shell-session
 iptables -t mangle -N V2RAY
 iptables -t mangle -A V2RAY -d 0.0.0.0/8 -j RETURN
 iptables -t mangle -A V2RAY -d 10.0.0.0/8 -j RETURN
@@ -500,7 +502,7 @@ iptables -t mangle -A V2RAY_MARK -p udp -j MARK --set-mark 1
 iptables -t mangle -A OUTPUT -j V2RAY_MARK
 ```
 
-```shell
+```shell-session
 $ lsmod | grep TPROXY
 ```
 
@@ -512,7 +514,7 @@ xt_TPROXY              20480  2
 
 如未出现此模块，说明系统未自动加载，需要手动设置。
 
-```shell
+```shell-session
 # modprobe xt_TPROXY
 ```
 
@@ -527,7 +529,7 @@ xt_TPROXY
 
 执行上述命令之后，理论上应该成功了，同样可以使用 cURL 进行测试。
 
-```shell
+```shell-session
 $ curl google.com
 ```
 
@@ -535,13 +537,13 @@ $ curl google.com
 
 不过呢，由于最后输入的一大串指令只是临时生效，重启后就需要重新配置，所有我们需要将其保存下来，并编写 Systemd 单元以方便使用。
 
-```shell
+```shell-session
 # mkdir /etc/iptables
 # iptables-save -f /etc/iptables/v2tproxy.rules
 # vim /etc/systemd/system/v2tproxy.service
 ```
 
-```ini
+```systemd
 [Unit]
 Description=Transparent proxy configurations for V2Ray
 After=network.target
@@ -554,7 +556,7 @@ ExecStart=/sbin/ip rule add fwmark 1 table 100 ; /sbin/ip route add local defaul
 WantedBy=multi-user.target
 ```
 
-```shell
+```shell-session
 # systemctl enable v2tproxy
 ```
 
