@@ -81,7 +81,7 @@
 
     if (document.getElementById('comment')) {
         const comment = document.getElementById('comment')
-        comment.dataset.articleId = comment.dataset.articleId.substring(18, comment.dataset.articleId.length - 1)
+        comment.dataset.articleId = btoa(comment.dataset.articleId.substring(18, comment.dataset.articleId.length - 1))
         if (!document.getElementById('article-nav')) {
             comment.style.marginTop = '50px'
         }
