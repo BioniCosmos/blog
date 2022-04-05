@@ -1,18 +1,11 @@
 <% if (post.photos && post.photos.length){ %>
-<div class="article-gallery">
-  <div class="article-gallery-photos">
     <% post.photos.forEach(function(photo, i){ %>
       <% if (index){ %>
-        <a class="article-gallery-img" href="<%- url_for(post.path) %>" rel="gallery_<%= post._id %>">
+        <a href="<%- url_for(post.path) %>">
           <img data-src="<%- url_for(photo) %>" class="lazy" src="/images/loading.png">
         </a>
       <% } else { %>
-        <span class="article-gallery-img">
-          <img data-src="<%- url_for(photo) %>" class="lazy" src="/images/loading.png">
-        </span>
+        <img data-src="<%- url_for(photo) %>" class="lazy" src="/images/loading.png">
       <% } %>
     <% }) %>
-  </div>
-</div>
 <% } %>
-
