@@ -87,4 +87,15 @@
         }
         loadScript('/js/wind-comment.umd.min.js')
     }
+
+    loadScript('https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js', false, () => {
+        loadScript('https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js', false, () => {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '$', right: '$', display: false },
+                ]
+            })
+        })
+    })
 </script>
