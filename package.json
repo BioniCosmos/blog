@@ -10,17 +10,18 @@
     "ocic": "node ocic source/images/"
   },
   "hexo": {
-    "version": "6.1.0"
+    "version": "6.2.0"
   },
   "dependencies": {
-    "hexo": "^6.1.0",
+    "hexo": "^6.2.0",
     "hexo-clean-css": "^2.0.0",
     "hexo-generator-archive": "^1.0.0",
+    "hexo-generator-feed": "^3.0.0",
     "hexo-generator-index": "^2.0.0",
     "hexo-html-minifier": "^1.0.0",
     "hexo-renderer-ejs": "^2.0.0",
-    "hexo-renderer-markdown-it": "^6.0.0",
-    "hexo-renderer-stylus": "^2.0.0",
+    "hexo-renderer-markdown-it": "^6.0.1",
+    "hexo-renderer-stylus": "^2.1.0",
     "hexo-server": "^3.0.0",
     "hexo-uglify": "^2.0.0"
   }
