@@ -5441,6 +5441,7 @@
 }));
 </script>
 <script>
+    DarkReader.setFetchMethod(window.fetch)
     if (sessionStorage.getItem('theme')) {
         sessionStorage.getItem('theme') === 'dark' ? DarkReader.enable() : DarkReader.disable()
     } else {

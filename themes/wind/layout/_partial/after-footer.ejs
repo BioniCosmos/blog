@@ -67,7 +67,6 @@
         document.getElementsByTagName('head')[0].appendChild(fonts)
     }, 3000)
 
-    DarkReader.setFetchMethod(window.fetch)
     document.getElementById('dark-switch').addEventListener('click', () => {
         if (DarkReader.isEnabled()) {
             DarkReader.disable()
