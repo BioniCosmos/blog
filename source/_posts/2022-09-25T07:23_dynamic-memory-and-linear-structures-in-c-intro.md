@@ -17,7 +17,7 @@ date: 2022-09-25 17:23
 >
 > 所谓「随机」可以理解为直接、任意，如访问数组时只需指定其索引即可访问，与之相对的是链表（之后会提到）等循序访问[^3]的数据结构，访问时须一个接着一个地找到目标。
 >
-> ![数组在内存中分布连续，可对任意元素直接访问；链表在内存中分布不连续，访问时必须从头部开始一个一个地寻找。](../images/dynamic-memory-and-linear-structures-in-c-intro/array-vs-list.png)
+> ![数组在内存中分布连续，可对任意元素直接访问；链表在内存中分布不连续，访问时必须从头部开始一个一个地寻找。](../images/dynamic-memory-and-linear-structures-in-c-intro/array-vs-list.webp)
 
 ## 数组的本质是指针
 
@@ -59,7 +59,7 @@ the address of arr: 0xfffffffff680
 
 接下来讨论一下为什么 `arr` 中的内容是本身的地址，这恰恰揭示了数组的本质⸺一个指向数组首元素地址的指针，与众不同的是，这个指针和它所指向的内容处于同一位置。听起来有点绕，让我们看一张图。
 
-![两种数组形式的比较](../images/dynamic-memory-and-linear-structures-in-c-intro/the-essence-of-array.png)
+![两种数组形式的比较](../images/dynamic-memory-and-linear-structures-in-c-intro/the-essence-of-array.webp)
 
 图中的上半部分就是数组在内存中的存储形式，实质占空间的只有 `arr[0]`、`arr[1]`、`arr[2]` 三个元素，而 `arr` 这个指针只是 C 中的一个特殊处理，它仿佛是一个幽灵，看似存在但在内存中却不占空间，这一点在上文的调试器输出中可以得到验证。
 
@@ -206,7 +206,7 @@ int main() {
 > ```c
 > #include <stdio.h>
 > #include <stdlib.h>
-> 
+>
 > int* stack(void) {
 >   int* arr = malloc(sizeof(int) * 3);
 >   for (int i = 0; i < 3; i++) {
@@ -214,7 +214,7 @@ int main() {
 >   }
 >   return arr;
 > }
-> 
+>
 > int main(void) {
 >   int* arr = stack();
 >   for (int i = 0; i < 3; i++) {
@@ -259,7 +259,7 @@ int main() {
 >     val arr = stack()           // 创建变量 arr，用函数 stack 的返回值将其初始化
 >     println(arr.joinToString()) // 输出 arr
 > }
-> 
+>
 > fun stack() = Array(3) { it }   // 创建函数 stack，返回值为一个长度为 3 的数组，初始化其中的元素为 0、1、2（不用管这是怎么做到的）
 > ```
 >
