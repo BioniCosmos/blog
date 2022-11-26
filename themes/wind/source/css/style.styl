@@ -16,7 +16,6 @@ html, body, #container
   height: 100%
 
 body
-  background: color-background
   font: font-size font-sans
   -webkit-text-size-adjust: 100%
 
@@ -28,6 +27,14 @@ body
   max-width: (column-width + gutter-width) * columns + gutter-width
   margin: 0 auto
   padding: 0 gutter-width
+
+@media (min-width: 768px)
+  .outer
+    max-width: 728px;
+
+@media (min-width: 1024px)
+  .outer
+    max-width: 952px;
 
 .inner
   column(columns)
@@ -44,9 +51,6 @@ body
 #container
   position: relative
 
-.mobile-nav-on
-  overflow: hidden
-
 #wrap
   width: 100%
   position: absolute
@@ -54,25 +58,11 @@ body
   left: 0
   transition: 0.2s ease-out
   z-index: 1
-  background: color-background
-  .mobile-nav-on &
-    left: mobile-nav-width
-
-@media (min-width: 992px)
-  .outer
-    max-width: 952px;
-
-@media (min-width: 768px)
-  .outer
-    max-width: 728px;
 
 @import "_extend"
-@import "_partial/header"
 @import "_partial/article"
 @import "_partial/archive"
 @import "_partial/footer"
-@import "_partial/highlight"
-@import "_partial/mobile"
 
 .medium-zoom-overlay
   z-index: 10

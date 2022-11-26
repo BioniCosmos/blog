@@ -3,26 +3,29 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "hexo generate",
-    "clean": "hexo clean",
-    "deploy": "hexo deploy",
-    "server": "hexo server",
-    "ocic": "node ocic source/images/"
+    "clean": "hexo clean && output=\"./themes/wind/source/css/output.css\" && [ ! -e $output ] || rm $output",
+    "ocic": "node ocic source/images/",
+    "tailwindcss-dev": "tailwindcss -i ./themes/wind/input.css -o ./themes/wind/source/css/output.css --watch",
+    "tailwindcss-build": "tailwindcss -o ./themes/wind/source/css/output.css --minify",
+    "dev": "hexo server & pnpm tailwindcss-dev",
+    "build": "pnpm clean && pnpm tailwindcss-build && hexo generate"
   },
   "hexo": {
-    "version": "6.2.0"
+    "version": "6.3.0"
   },
   "dependencies": {
-    "hexo": "^6.2.0",
+    "hexo": "^6.3.0",
     "hexo-clean-css": "^2.0.0",
-    "hexo-generator-archive": "^1.0.0",
-    "hexo-generator-feed": "^3.0.0",
-    "hexo-generator-index": "^2.0.0",
+    "hexo-generator-archive": "^2.0.0",
+    "hexo-generator-index": "^3.0.0",
     "hexo-html-minifier": "^1.0.0",
     "hexo-renderer-ejs": "^2.0.0",
-    "hexo-renderer-markdown-it": "^6.0.1",
+    "hexo-renderer-markdown-it": "^6.1.0",
     "hexo-renderer-stylus": "^2.1.0",
     "hexo-server": "^3.0.0",
     "hexo-uglify": "^2.0.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.2.4"
   }
 }

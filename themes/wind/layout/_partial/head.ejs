@@ -18,14 +18,14 @@
   }
   %>
   <title><% if (title){ %><%= title %> | <% } %><%= config.title %></title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <% if (theme.favicon){ %>
     <%- favicon_tag(theme.favicon) %>
   <% } %>
   <%- css('css/style') %>
-  <link href="/fontawesome/css/all.min.css" rel="stylesheet">
   <%- css('css/prism.css') %>
   <%- css('css/wind-comment.css') %>
   <%- partial('darkreader') %>
+  <link href="/css/output.css" rel="stylesheet">
   <link rel="stylesheet" href="https://npm.elemecdn.com/katex@0.15.3/dist/katex.min.css">
 </head>
