@@ -2,6 +2,7 @@
 title: 链表实现多项式加减法（多项式篇）
 permalink: /implement-add-and-sub-of-polynomial-with-a-linked-list-polynomial/
 date: 2022-04-25 23:30
+mathjax: true
 ---
 链表是一种可以动态增删的简单数据结构，相比于长度固定的数组，链表更加灵活。利用这些特性，我们可以使用链表存储多项式，并实现多项式的加减法。
 
