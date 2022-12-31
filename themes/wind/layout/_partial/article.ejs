@@ -13,7 +13,7 @@
     </div>
   <% } else { %>
     <div class="article-inner">
-      <%- partial('post/gallery') %>
+      <div class="flex justify-center"><%- partial('post/gallery') %></div>
       <% if (post.link || post.title){ %>
         <header class="article-header">
           <%- partial('post/title', {class_name: 'p-name article-title'}) %>
