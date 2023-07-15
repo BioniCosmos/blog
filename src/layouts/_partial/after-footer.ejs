@@ -1,0 +1,56 @@
+<script type="module">
+  function loadScript(url, isModule, callback) {
+    const script = document.createElement('script')
+    script.src = url
+    script.async = true
+    if (isModule) {
+      script.type = 'module'
+    }
+    if (callback) {
+      script.addEventListener('load', () => {
+        callback()
+      })
+    }
+    document.body.appendChild(script)
+  }
+
+  const body = document.body
+  const menu = document.querySelector('#menu')
+  let menuIsShow = false
+  document.querySelector('#menu-button').addEventListener('click', () => {
+    if (menuIsShow) {
+      menu.style.opacity = '0'
+      setTimeout(() => {
+        menu.style.display = 'none'
+      }, 150)
+      body.style.overflow = 'visible'
+    } else {
+      menu.style.display = 'flex'
+      setTimeout(() => {
+        menu.style.opacity = '1'
+      }, 1)
+      body.style.overflow = 'hidden'
+    }
+    menuIsShow = !menuIsShow
+  })
+
+  window.lazyLoadOptions = {}
+  loadScript('https://npm.elemecdn.com/vanilla-lazyload@17.5.0/dist/lazyload.min.js')
+
+  loadScript('https://npm.elemecdn.com/medium-zoom@1.0.6/dist/medium-zoom.min.js', false, () => {
+    mediumZoom('.medium-zoom', {
+      margin: 24,
+      background: '#000000c0'
+    })
+  })
+
+  setTimeout(() => {
+    const fonts = document.createElement('link')
+    fonts.href = '/css/fonts.css'
+    fonts.rel = 'stylesheet'
+    document.getElementsByTagName('head')[0].appendChild(fonts)
+  }, 3000)
+
+  loadScript('/js/prism.js');
+  (await import('/js/wind-comment-web.mjs')).init('#wind-comment', 'https://wind-comment.moecm.workers.dev')
+</script>

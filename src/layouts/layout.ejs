@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<%- partial('_partial/head') %>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <%- partial('_partial/header', null, {cache: !config.relative_link}) %>
+      <div class="outer mt-[3.75rem]">
+        <section id="main"><%- body %></section>
+      </div>
+      <%- partial('_partial/footer', null, {cache: !config.relative_link}) %>
+    </div>
+  </div>
+  <%- partial('_partial/after-footer') %>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<% if (post.photos && post.photos.length){ %>
+    <% post.photos.forEach(function(photo, i){ %>
+      <% if (index){ %>
+        <a href="<%- url_for(post.path) %>">
+          <img data-src="<%- url_for(photo) %>" class="lazy" src="/images/loading.png">
+        </a>
+      <% } else { %>
+        <img data-src="<%- url_for(photo) %>" class="lazy" src="/images/loading.png">
+      <% } %>
+    <% }) %>
+<% } %>

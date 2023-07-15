@@ -1,0 +1,42 @@
+<article id="<%= post.layout %>-<%= post.slug %>" class="h-entry my-4 article-type-<%= post.layout %>">
+  <% if (index) { %>
+    <div class="article-inner">
+      <% if (post.link || post.title){ %>
+        <header class="article-header">
+          <%- partial('post/title', {class_name: 'p-name article-title'}) %>
+        </header>
+      <% } %>
+      <div class="text-[#555] mx-5 mt-6 mb-4"><%- post.excerpt %></div>
+      <div class="article-footer">
+        <time lang="en-US"><%= date(post.date) %></time>
+      </div>
+    </div>
+  <% } else { %>
+    <div class="article-inner">
+      <div class="flex justify-center"><%- partial('post/gallery') %></div>
+      <% if (post.link || post.title){ %>
+        <header class="article-header">
+          <%- partial('post/title', {class_name: 'p-name article-title'}) %>
+        </header>
+      <% } %>
+      <div class="e-content article-entry" itemprop="articleBody">
+        <% if (post.excerpt && index){ %>
+          <%- post.excerpt %>
+        <% } else { %>
+          <%- post.content %>
+        <% } %>
+      </div>
+      <% if (index){ %>
+        <div class="article-footer">
+          <time lang="en-US"><%= date(post.date) %></time>
+        </div>
+      <% } %>
+    </div>
+  <% } %>
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
+  <% if (!index){ %>
+    <div id="wind-comment"></div>
+  <% } %>
+</article>
