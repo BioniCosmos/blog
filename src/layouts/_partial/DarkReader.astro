@@ -1,4 +1,4 @@
-<script>
+<script is:inline>
 /**
  * Dark Reader v4.9.44
  * https://darkreader.org/
@@ -5440,7 +5440,7 @@
 
 }));
 </script>
-<script>
+<script is:inline>
     DarkReader.setFetchMethod(window.fetch)
     if (sessionStorage.getItem('theme')) {
         sessionStorage.getItem('theme') === 'dark' ? DarkReader.enable() : DarkReader.disable()

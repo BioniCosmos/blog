@@ -1,0 +1,24 @@
+---
+import AfterFooterLayout from './_partial/AfterFooterLayout.astro'
+import FooterLayout from './_partial/FooterLayout.astro'
+import HeadLayout from './_partial/HeadLayout.astro'
+import HeaderLayout from './_partial/HeaderLayout.astro'
+---
+
+<html>
+  <HeadLayout />
+  <body>
+    <div id="container">
+      <div id="wrap">
+        <HeaderLayout />
+        <div class="outer mt-[3.75rem]">
+          <section id="main">
+            <slot />
+          </section>
+        </div>
+        <FooterLayout />
+      </div>
+    </div>
+    <AfterFooterLayout />
+  </body>
+</html>

@@ -1,0 +1,35 @@
+---
+import MenuIcon from './icons/MenuIcon.astro'
+---
+
+<header class="flex fixed w-screen bg-white z-10">
+  <div class="m-4 w-full flex justify-between">
+    <a href="/" lang="en-US" class="text-xl font-serif font-bold"
+      >Daniel’s Blog</a
+    >
+    <button type="button" id="menu-button"><MenuIcon /></button>
+  </div>
+</header>
+<div
+  id="menu"
+  class="fixed h-[calc(100vh-3.75rem)] w-screen top-[3.75rem] z-10 bg-white items-center justify-center transition"
+  style="display: none; opacity: 0;"
+>
+  <nav class="flex flex-col text-center text-2xl gap-6">
+    <a
+      href="/archives/"
+      class="font-light opacity-70 hover:opacity-100 transition relative after:absolute after:top-3/4 after:bottom-0 after:bg-blue-600/50 after:-left-px after:-right-px hover:after:top-0 after:transition-all"
+      >归档</a
+    >
+    <a
+      href="/topics/"
+      class="font-light opacity-70 hover:opacity-100 transition relative after:absolute after:top-3/4 after:bottom-0 after:bg-blue-600/50 after:-left-px after:-right-px hover:after:top-0 after:transition-all"
+      >专题</a
+    >
+    <a
+      href="https://me.moecm.com"
+      class="font-light opacity-70 hover:opacity-100 transition relative after:absolute after:top-3/4 after:bottom-0 after:bg-blue-600/50 after:-left-px after:-right-px hover:after:top-0 after:transition-all"
+      >关于我</a
+    >
+  </nav>
+</div>

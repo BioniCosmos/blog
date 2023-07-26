@@ -1,0 +1,72 @@
+---
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { articles } from './article'
+
+export const getStaticPaths = (async () => {
+  console.log(articles)
+  return articles.map((article) => ({
+    params: { article: article.path },
+    props: { ...article },
+  }))
+}) satisfies GetStaticPaths
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>
+
+const { image, title, Content, nav } = Astro.props
+---
+
+<BaseLayout>
+  <article class="h-entry my-4">
+    <div class="article-inner">
+      <div class="flex justify-center">
+        <img data-src={image} class="lazy" src="/images/loading.png" />
+      </div>
+      <header class="article-header">
+        <h1 class="p-name article-title" itemprop="headline name">
+          {title}
+        </h1>
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        <Content />
+      </div>
+    </div>
+    <nav id="article-nav">
+      {
+        nav.prev !== null ? (
+          <a
+            href={nav.prev.path}
+            id="article-nav-newer"
+            class="article-nav-link-wrap"
+          >
+            <strong class="article-nav-caption">前一篇</strong>
+            <div class="article-nav-title">
+              {nav.prev.title === '' ? '(no title)' : nav.prev.title}
+            </div>
+          </a>
+        ) : (
+          ''
+        )
+      }
+      {
+        nav.next !== null ? (
+          <a
+            href={nav.next.path}
+            id="article-nav-older"
+            class="article-nav-link-wrap"
+          >
+            <strong class="article-nav-caption">后一篇</strong>
+            <div class="article-nav-title">
+              {nav.next.title === '' ? '(no title)' : nav.next.title}
+            </div>
+          </a>
+        ) : (
+          ''
+        )
+      }
+      <!-- <% if (!index){ %>
+      <div id="wind-comment"></div>
+    <% } %> -->
+    </nav>
+  </article>
+</BaseLayout>
