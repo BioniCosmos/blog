@@ -1,0 +1,29 @@
+---
+import type { Page } from 'astro'
+import type { Article } from '../pages/article'
+
+interface Props {
+  page: Page<Article>
+}
+
+const { page } = Astro.props
+---
+
+{
+  page.lastPage > 1 ? (
+    <nav id="page-nav">
+      <a href={page.url.prev} class:list={{ hidden: page.currentPage === 1 }}>
+        上一页
+      </a>
+      <div class="page-number">{`${page.currentPage}/${page.lastPage}`}</div>
+      <a
+        href={page.url.next}
+        class:list={{ hidden: page.currentPage === page.lastPage }}
+      >
+        下一页
+      </a>
+    </nav>
+  ) : (
+    ''
+  )
+}

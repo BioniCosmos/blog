@@ -4,7 +4,6 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import { articles } from './article'
 
 export const getStaticPaths = (async () => {
-  console.log(articles)
   return articles.map((article) => ({
     params: { article: article.path },
     props: { ...article },

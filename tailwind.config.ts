@@ -6,7 +6,5 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [
-    typography,
-  ],
-} as Config
+  plugins: [typography],
+} satisfies Config

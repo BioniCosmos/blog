@@ -1,0 +1,38 @@
+---
+import type { GetStaticPaths, Page } from 'astro'
+import Paginator from '../components/Paginator.astro'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { Article, articles } from './article'
+
+export const getStaticPaths = (async ({ paginate }) => {
+  return paginate(articles.reverse(), { pageSize: 10 })
+}) satisfies GetStaticPaths
+
+type Props = { page: Page<Article> }
+
+const { page } = Astro.props
+---
+
+<BaseLayout>
+  {
+    page.data.map((article) => (
+      <article class="h-entry my-4">
+        <div class="article-inner">
+          <header class="article-header">
+            <h1 class="text-2xl font-bold text-gray-700">
+              <a href={article.path}>{article.title}</a>
+            </h1>
+          </header>
+          <div
+            class="text-[#555] mx-5 mt-6 mb-4 prose"
+            set:html={article.abstract}
+          />
+          <div class="article-footer">
+            <time lang="en-US">{article.dateTime.date}</time>
+          </div>
+        </div>
+      </article>
+    ))
+  }
+  <Paginator {page} />
+</BaseLayout>

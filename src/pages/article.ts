@@ -4,34 +4,32 @@ import { basename } from 'node:path'
 export type Article = {
   path: string
   title: string
-  date: Date
+  dateTime: DateTime
   nav: Nav
-} & FrontMatter &
+} & Frontmatter &
   Pick<Md, 'Content'>
 
 export const articles: Array<Article> = (
   await Promise.all(
     Object.values(import.meta.glob<Md>('../articles/*/*.md')).map((md) => md())
   )
-).map((md, i, mds) => {
-  return {
-    path: getUrlPath(md.file),
-    title: getTitle(md.getHeadings()),
-    date: getDate(md.file),
-    image: md.frontmatter.image,
-    Content: md.Content,
-    nav: {
-      prev: i !== 0 ? NavInfo(mds[i - 1]!) : null,
-      next: i !== mds.length - 1 ? NavInfo(mds[i + 1]!) : null,
-    },
-  }
-})
+).map((md, i, mds) => ({
+  ...splitFilePath(md.file),
+  ...md.frontmatter,
+  title: getTitle(md.getHeadings()),
+  Content: md.Content,
+  nav: {
+    prev: i !== 0 ? NavInfo(mds[i - 1]!) : null,
+    next: i !== mds.length - 1 ? NavInfo(mds[i + 1]!) : null,
+  },
+}))
 
-interface FrontMatter {
+export interface Frontmatter {
+  abstract: string
   image: string
 }
 
-type Md = MarkdownInstance<FrontMatter>
+type Md = MarkdownInstance<Frontmatter>
 
 interface Nav {
   prev: NavInfo | null
@@ -43,21 +41,27 @@ interface NavInfo {
   title: string
 }
 
-function NavInfo(article: Md): NavInfo {
-  return {
-    path: getUrlPath(article.file),
-    title: getTitle(article.getHeadings()),
-  }
+interface DateTime {
+  date: string
+  time: string
 }
 
-function getUrlPath(filePath: Md['file']) {
-  return basename(filePath, '.md').split('_')[1]!
+function NavInfo(article: Md): NavInfo {
+  return {
+    path: splitFilePath(article.file).path,
+    title: getTitle(article.getHeadings()),
+  }
 }
 
 function getTitle(headings: ReturnType<Md['getHeadings']>) {
   return headings.find(({ depth }) => depth === 1)?.text ?? ''
 }
 
-function getDate(filePath: Md['file']) {
-  return new Date(basename(filePath, '.md').split('_')[0]!)
+function splitFilePath(filePath: Md['file']): {
+  path: string
+  dateTime: DateTime
+} {
+  const [dateTime = '', path = ''] = basename(filePath, '.md').split('_')
+  const [date = '', time = ''] = dateTime.split('T')
+  return { path, dateTime: { date, time } }
 }
