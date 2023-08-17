@@ -1,35 +1,53 @@
-import type { MarkdownInstance } from 'astro'
+import type { MarkdownHeading, MarkdownInstance } from 'astro'
+import { getCollection } from 'astro:content'
 import { basename } from 'node:path'
+import type { Image } from '../content/config'
 
-export type Article = {
+export interface Article {
   path: string
   title: string
   dateTime: DateTime
-  nav: Nav
-} & Frontmatter &
-  Pick<Md, 'Content'>
-
-export const articles: Array<Article> = (
-  await Promise.all(
-    Object.values(import.meta.glob<Md>('../articles/*/*.md')).map((md) => md())
-  )
-).map((md, i, mds) => ({
-  ...splitFilePath(md.file),
-  ...md.frontmatter,
-  title: getTitle(md.getHeadings()),
-  Content: md.Content,
-  nav: {
-    prev: i !== 0 ? NavInfo(mds[i - 1]!) : null,
-    next: i !== mds.length - 1 ? NavInfo(mds[i + 1]!) : null,
-  },
-}))
-
-export interface Frontmatter {
+  Content: MarkdownInstance<{}>['Content']
   abstract: string
-  image: string
+  image: Image
+  nav: Nav
 }
 
-type Md = MarkdownInstance<Frontmatter>
+let _articles: Array<Article> | null = null
+
+export async function articles() {
+  if (_articles === null) {
+    _articles = (await rendered(await getCollection('articles'))).map(
+      (
+        {
+          id,
+          data: { image },
+          render: {
+            Content,
+            headings,
+            remarkPluginFrontmatter: { abstract },
+          },
+        },
+        i,
+        articleEntries
+      ) => ({
+        ...parseFilePath(id),
+        title: getTitle(headings),
+        Content,
+        abstract,
+        image,
+        nav: {
+          prev: i !== 0 ? NavInfo(articleEntries[i - 1]!) : null,
+          next:
+            i !== articleEntries.length - 1
+              ? NavInfo(articleEntries[i + 1]!)
+              : null,
+        },
+      })
+    )
+  }
+  return _articles
+}
 
 interface Nav {
   prev: NavInfo | null
@@ -46,18 +64,26 @@ interface DateTime {
   time: string
 }
 
-function NavInfo(article: Md): NavInfo {
+async function rendered(entries: Awaited<ReturnType<typeof getCollection>>) {
+  const renders = await Promise.all(entries.map((entry) => entry.render()))
+  return entries.map((entry, i) => ({ ...entry, render: renders[i]! }))
+}
+
+function NavInfo({
+  id,
+  render: { headings },
+}: Awaited<ReturnType<typeof rendered>>[number]): NavInfo {
   return {
-    path: splitFilePath(article.file).path,
-    title: getTitle(article.getHeadings()),
+    path: parseFilePath(id).path,
+    title: getTitle(headings),
   }
 }
 
-function getTitle(headings: ReturnType<Md['getHeadings']>) {
+function getTitle(headings: Array<MarkdownHeading>) {
   return headings.find(({ depth }) => depth === 1)?.text ?? ''
 }
 
-function splitFilePath(filePath: Md['file']): {
+function parseFilePath(filePath: string): {
   path: string
   dateTime: DateTime
 } {

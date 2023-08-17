@@ -1,10 +1,11 @@
 ---
 import type { GetStaticPaths, InferGetStaticPropsType } from 'astro'
+import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import { articles } from './article'
 
 export const getStaticPaths = (async () => {
-  return articles.map((article) => ({
+  return (await articles()).map((article) => ({
     params: { article: article.path },
     props: { ...article },
   }))
@@ -19,7 +20,7 @@ const { image, title, Content, nav } = Astro.props
   <article class="h-entry my-4">
     <div class="article-inner">
       <div class="flex justify-center">
-        <img data-src={image} class="lazy" src="/images/loading.png" />
+        {image !== undefined ? <Image src={image} alt="" /> : ''}
       </div>
       <header class="article-header">
         <h1 class="p-name article-title" itemprop="headline name">
@@ -69,3 +70,9 @@ const { image, title, Content, nav } = Astro.props
     </nav>
   </article>
 </BaseLayout>
+
+<script>
+  import mediumZoom from 'medium-zoom'
+
+  mediumZoom('img', { background: '#000000bf' })
+</script>

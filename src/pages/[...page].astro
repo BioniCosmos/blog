@@ -5,7 +5,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import { Article, articles } from './article'
 
 export const getStaticPaths = (async ({ paginate }) => {
-  return paginate(articles.reverse(), { pageSize: 10 })
+  return paginate((await articles()).reverse(), { pageSize: 10 })
 }) satisfies GetStaticPaths
 
 type Props = { page: Page<Article> }

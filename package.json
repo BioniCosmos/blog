@@ -13,6 +13,7 @@
   "devDependencies": {
     "@astrojs/tailwind": "^4.0.0",
     "@tailwindcss/typography": "^0.5.9",
+    "@types/hast": "^2.3.5",
     "@types/mdast": "^3.0.12",
     "@types/node": "^20.4.2",
     "astro": "^2.8.3",
@@ -21,6 +22,15 @@
     "stylus": "^0.59.0",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.1.6",
-    "unified": "^10.1.2"
+    "unified": "^10.1.2",
+    "unist-util-visit": "^5.0.0"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "astro@2.8.3": "patches/astro@2.8.3.patch"
+    }
+  },
+  "dependencies": {
+    "medium-zoom": "^1.0.8"
   }
 }

@@ -34,16 +34,6 @@
     menuIsShow = !menuIsShow
   })
 
-  window.lazyLoadOptions = {}
-  loadScript('https://npm.elemecdn.com/vanilla-lazyload@17.5.0/dist/lazyload.min.js')
-
-  loadScript('https://npm.elemecdn.com/medium-zoom@1.0.6/dist/medium-zoom.min.js', false, () => {
-    mediumZoom('.medium-zoom', {
-      margin: 24,
-      background: '#000000c0'
-    })
-  })
-
   setTimeout(() => {
     const fonts = document.createElement('link')
     fonts.href = '/css/fonts.css'
