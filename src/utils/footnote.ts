@@ -1,47 +1,44 @@
 import type { Content, Element, ElementContent, Root as HastRoot } from 'hast'
-import type { Root as MdastRoot } from 'mdast'
+import { selectAll } from 'hast-util-select'
+import { h } from 'hastscript'
+import type { Image, Root as MdastRoot } from 'mdast'
 import type { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 
 export const extractRefInImageCaption: Plugin<[], MdastRoot> = () => (tree) => {
-  visit(tree, 'image', (node, i, parent) => {
-    const title = node.title ?? ''
-    if (title === '') {
-      return
+  visit(
+    tree,
+    (node) => node.type === 'image' && (node as Image).title !== '',
+    (node, i, parent) => {
+      const title = (node as Image).title!
+      const match = /\[\^(\d+)\]/g.exec(title)
+      if (match === null || match[1] === undefined) {
+        return
+      }
+      parent?.children.splice(i! + 1, 0, {
+        type: 'footnoteReference',
+        identifier: match[1],
+        label: match[1],
+      })
     }
-    const match = /\[\^(\d+)\]/g.exec(title)
-    if (match === null || match[1] === undefined) {
-      return
-    }
-    parent?.children.splice(i! + 1, 0, {
-      type: 'footnoteReference',
-      identifier: match[1],
-      label: match[1],
-    })
-  })
+  )
 }
 
 export const imageCaption: Plugin<[], HastRoot> = () => (tree) => {
-  visit(tree, 'element', (node, i, parent) => {
-    if (parent === undefined || node.tagName !== 'img') {
-      return
+  visit(
+    tree,
+    (node) =>
+      node.type === 'element' &&
+      (node as Element).tagName === 'img' &&
+      ((node as Element).properties?.title?.toString() ?? '') !== '',
+    (node, i, parent) => {
+      parent = parent!
+      const title = (node as Element).properties?.title?.toString()!
+      const caption = parseRawCaption(title, parent.children)
+      const figureNode = h('figure', [node, h('figcaption', caption)])
+      parent.children[i!] = figureNode
     }
-    const title = node.properties?.title?.toString() ?? ''
-    if (title === '') {
-      return
-    }
-
-    const caption = parseRawCaption(title, parent.children)
-    const figureNode: Element = {
-      type: 'element',
-      tagName: 'figure',
-      children: [
-        node,
-        { type: 'element', tagName: 'figcaption', children: caption },
-      ],
-    }
-    parent.children[i!] = figureNode
-  })
+  )
 }
 
 interface Token {
@@ -91,4 +88,12 @@ function parseRawCaption(
         return { type: 'text', value: caption.slice(start, end) }
       })
     : Array.of({ type: 'text', value: caption })
+}
+
+export const removeParagraph: Plugin<[], HastRoot> = () => (tree) => {
+  const footnotes = selectAll('section > ol > li', tree)
+  footnotes.forEach(
+    (footnote) =>
+      (footnote.children = (footnote.children[1] as Element).children)
+  )
 }

@@ -1,0 +1,10 @@
+<script type="module">
+  setTimeout(() => {
+    const fonts = document.createElement('link')
+    fonts.href = '/css/fonts.css'
+    fonts.rel = 'stylesheet'
+    document.getElementsByTagName('head')[0].appendChild(fonts)
+  }, 3000)
+
+  ;(await import('/js/wind-comment-web.mjs')).init('#wind-comment', 'https://wind-comment.moecm.workers.dev')
+</script>

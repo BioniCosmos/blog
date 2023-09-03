@@ -1,0 +1,40 @@
+---
+import type { Nav } from '../utils/article'
+import ChevronLeftIcon from './icons/ChevronLeftIcon.astro'
+import ChevronRightIcon from './icons/ChevronRightIcon.astro'
+
+interface Props {
+  nav: Nav
+}
+
+const { nav } = Astro.props
+---
+
+<nav class="flex justify-between items-center py-8 px-2 text-sm">
+  {
+    nav.prev !== null ? (
+      <a
+        href={nav.prev.path}
+        class="flex gap-1 basis-1/2 items-center justify-start text-start"
+      >
+        <ChevronLeftIcon class="flex-shrink-0 w-5 h-5" />
+        <div>{nav.prev.title}</div>
+      </a>
+    ) : (
+      <div />
+    )
+  }
+  {
+    nav.next !== null ? (
+      <a
+        href={nav.next.path}
+        class="flex gap-1 basis-1/2 items-center justify-end text-end"
+      >
+        <div>{nav.next.title}</div>
+        <ChevronRightIcon class="flex-shrink-0 w-5 h-5" />
+      </a>
+    ) : (
+      <div />
+    )
+  }
+</nav>

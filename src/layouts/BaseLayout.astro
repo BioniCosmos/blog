@@ -1,24 +1,24 @@
 ---
-import AfterFooterLayout from './_partial/AfterFooterLayout.astro'
-import FooterLayout from './_partial/FooterLayout.astro'
-import HeadLayout from './_partial/HeadLayout.astro'
-import HeaderLayout from './_partial/HeaderLayout.astro'
+import AfterFooterLayout from './AfterFooterLayout.astro'
+import FooterLayout from './FooterLayout.astro'
+import HeaderLayout from './HeaderLayout.astro'
 ---
 
 <html>
-  <HeadLayout />
+  <head>
+    <meta charset="utf-8" />
+    <title>Daniel’s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/images/logo.png" />
+    <link rel="stylesheet" href="/css/prism.css" />
+    <!-- <link rel="stylesheet" href="/css/wind-comment.css" /> -->
+  </head>
   <body>
-    <div id="container">
-      <div id="wrap">
-        <HeaderLayout />
-        <div class="outer mt-[3.75rem]">
-          <section id="main">
-            <slot />
-          </section>
-        </div>
-        <FooterLayout />
-      </div>
-    </div>
+    <HeaderLayout />
+    <main class="max-w-prose mx-auto xl:max-w-[80ch]">
+      <slot />
+    </main>
+    <FooterLayout />
     <AfterFooterLayout />
   </body>
 </html>

@@ -1,6 +1,8 @@
 ---
 import type { Page } from 'astro'
 import type { Article } from '../pages/article'
+import ChevronLeftIcon from './icons/ChevronLeftIcon.astro'
+import ChevronRightIcon from './icons/ChevronRightIcon.astro'
 
 interface Props {
   page: Page<Article>
@@ -11,17 +13,22 @@ const { page } = Astro.props
 
 {
   page.lastPage > 1 ? (
-    <nav id="page-nav">
-      <a href={page.url.prev} class:list={{ hidden: page.currentPage === 1 }}>
-        上一页
-      </a>
-      <div class="page-number">{`${page.currentPage}/${page.lastPage}`}</div>
-      <a
-        href={page.url.next}
-        class:list={{ hidden: page.currentPage === page.lastPage }}
-      >
-        下一页
-      </a>
+    <nav class="flex justify-between items-center py-8 px-2 text-gray-600">
+      {page.url.prev !== undefined ? (
+        <a href={page.url.prev}>
+          <ChevronLeftIcon class="w-6 h-6" />
+        </a>
+      ) : (
+        <div class="w-6" />
+      )}
+      <div>{`${page.currentPage}/${page.lastPage}`}</div>
+      {page.url.next !== undefined ? (
+        <a href={page.url.next}>
+          <ChevronRightIcon class="w-6 h-6" />
+        </a>
+      ) : (
+        <div class="w-6" />
+      )}
     </nav>
   ) : (
     ''

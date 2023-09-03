@@ -1,6 +1,7 @@
 ---
 import type { GetStaticPaths, InferGetStaticPropsType } from 'astro'
 import { Image } from 'astro:assets'
+import Navigator from '../components/Navigator.astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import { articles } from './article'
 
@@ -13,62 +14,18 @@ export const getStaticPaths = (async () => {
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
-const { image, title, Content, nav } = Astro.props
+const { image, Content, nav } = Astro.props
 ---
 
 <BaseLayout>
-  <article class="h-entry my-4">
-    <div class="article-inner">
-      <div class="flex justify-center">
-        {image !== undefined ? <Image src={image} alt="" /> : ''}
-      </div>
-      <header class="article-header">
-        <h1 class="p-name article-title" itemprop="headline name">
-          {title}
-        </h1>
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        <Content />
-      </div>
-    </div>
-    <nav id="article-nav">
-      {
-        nav.prev !== null ? (
-          <a
-            href={nav.prev.path}
-            id="article-nav-newer"
-            class="article-nav-link-wrap"
-          >
-            <strong class="article-nav-caption">前一篇</strong>
-            <div class="article-nav-title">
-              {nav.prev.title === '' ? '(no title)' : nav.prev.title}
-            </div>
-          </a>
-        ) : (
-          ''
-        )
-      }
-      {
-        nav.next !== null ? (
-          <a
-            href={nav.next.path}
-            id="article-nav-older"
-            class="article-nav-link-wrap"
-          >
-            <strong class="article-nav-caption">后一篇</strong>
-            <div class="article-nav-title">
-              {nav.next.title === '' ? '(no title)' : nav.next.title}
-            </div>
-          </a>
-        ) : (
-          ''
-        )
-      }
-      <!-- <% if (!index){ %>
-      <div id="wind-comment"></div>
-    <% } %> -->
-    </nav>
+  {image !== undefined ? <Image src={image} alt="" /> : ''}
+  <article
+    class="prose prose-figure:flex prose-figure:flex-col prose-figure:items-center max-w-none p-4 sm:p-6 md:pt-8"
+  >
+    <Content />
   </article>
+  <Navigator nav={nav} />
+  <!-- <div id="wind-comment"></div> -->
 </BaseLayout>
 
 <script>
