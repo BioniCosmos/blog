@@ -20,7 +20,7 @@ const { image, Content, nav } = Astro.props
 <BaseLayout>
   {image !== undefined ? <Image src={image} alt="" /> : ''}
   <article
-    class="prose prose-figure:flex prose-figure:flex-col prose-figure:items-center max-w-none p-4 sm:p-6 md:pt-8"
+    class="prose prose-h1:font-bold prose-figure:flex prose-figure:flex-col prose-figure:items-center max-w-none p-4 sm:p-6 md:pt-8"
   >
     <Content />
   </article>

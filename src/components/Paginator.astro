@@ -13,21 +13,21 @@ const { page } = Astro.props
 
 {
   page.lastPage > 1 ? (
-    <nav class="flex justify-between items-center py-8 px-2 text-gray-600">
+    <nav class="flex justify-between items-center py-8 px-2 text-sm text-gray-600">
       {page.url.prev !== undefined ? (
         <a href={page.url.prev}>
-          <ChevronLeftIcon class="w-6 h-6" />
+          <ChevronLeftIcon class="w-5 h-5" />
         </a>
       ) : (
-        <div class="w-6" />
+        <div class="w-5" />
       )}
       <div>{`${page.currentPage}/${page.lastPage}`}</div>
       {page.url.next !== undefined ? (
         <a href={page.url.next}>
-          <ChevronRightIcon class="w-6 h-6" />
+          <ChevronRightIcon class="w-5 h-5" />
         </a>
       ) : (
-        <div class="w-6" />
+        <div class="w-5" />
       )}
     </nav>
   ) : (

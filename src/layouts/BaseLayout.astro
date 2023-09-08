@@ -1,5 +1,6 @@
 ---
-import AfterFooterLayout from './AfterFooterLayout.astro'
+import '../styles/font-han.css'
+import '../styles/prism.css'
 import FooterLayout from './FooterLayout.astro'
 import HeaderLayout from './HeaderLayout.astro'
 ---
@@ -7,11 +8,9 @@ import HeaderLayout from './HeaderLayout.astro'
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
     <title>Daniel’s Blog</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/images/logo.png" />
-    <link rel="stylesheet" href="/css/prism.css" />
-    <!-- <link rel="stylesheet" href="/css/wind-comment.css" /> -->
   </head>
   <body>
     <HeaderLayout />
@@ -19,6 +18,5 @@ import HeaderLayout from './HeaderLayout.astro'
       <slot />
     </main>
     <FooterLayout />
-    <AfterFooterLayout />
   </body>
 </html>
