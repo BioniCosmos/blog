@@ -60,6 +60,7 @@ export default {
           marginRight: 'auto',
         },
         'mjx-container[jax="SVG"] > svg': { display: 'inline' },
+        code: { fontVariantLigatures: 'none' },
       })
     }),
   ],
