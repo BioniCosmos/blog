@@ -15,6 +15,8 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [abstract, extractRefInImageCaption, remarkMath],
     rehypePlugins: [imageCaption, removeParagraph, rehypeMathjax],
-    syntaxHighlight: 'prism',
+    shikiConfig: {
+      theme: 'dark-plus',
+    },
   },
 })

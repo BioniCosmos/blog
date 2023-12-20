@@ -53,7 +53,7 @@ network:
 
 保存退出，执行
 
-```shell-session
+```shellsession
 # netplan apply
 ```
 
@@ -69,7 +69,7 @@ net.ipv4.tcp_congestion_control = bbr
 
 保存后运行
 
-```shell-session
+```shellsession
 # sysctl -p
 ```
 
@@ -79,7 +79,7 @@ net.ipv4.tcp_congestion_control = bbr
 
 接下来就是挂载块存储了，首先需要在面板中将块存储添加到 VPS 中，然后在 VPS 中对其进行分区、格式化后挂载。
 
-```shell-session
+```shellsession
 # fdisk /dev/sda # 正常来说都会显示为 sdX。
 ```
 
@@ -87,7 +87,7 @@ net.ipv4.tcp_congestion_control = bbr
 
 之后输入
 
-```shell-session
+```shellsession
 # mkfs.ext4 /dev/sda1
 ```
 
@@ -97,7 +97,7 @@ net.ipv4.tcp_congestion_control = bbr
 /dev/sda1 /home ext4 defaults 0 0 # 这里我选择将块存储挂载到整个 /home 目录。
 ```
 
-```shell-session
+```shellsession
 # mount /dev/sda1 # 由于已经配置了 fstab 文件，所以使用 mount 指令时无需指定其他参数。
 $ df -h # 查看挂载情况。
 ```
@@ -106,7 +106,7 @@ $ df -h # 查看挂载情况。
 
 由于需要使用 `/home` 目录，也为了增加安全性，顺便新建一个用户。这里将「steve」作为新用户的名称。[^6][^7]
 
-```shell-session
+```shellsession
 # useradd -m -G sudo -s /bin/bash steve # 创建 steve 用户，创建用户主目录，将 steve 添加到 sudo 用户组以使用 sudo 指令，将 bash 作为其默认 shell。
 # passwd steve # 为 steve 用户设定密码。
 ```
@@ -121,7 +121,7 @@ $ df -h # 查看挂载情况。
 
 演示环境为 Ubuntu 20.04，Cloudreve 相关文件会储存在用户主目录下的 `cloudreve` 文件夹中。
 
-```shell-session
+```shellsession
 $ cd
 $ mkdir cloudreve
 $ cd cloudreve/
@@ -135,7 +135,7 @@ $ ./cloudreve
 
 创建 `/etc/systemd/system/cloudreve.service`。
 
-```systemd
+```ini
 [Unit]
 Description=Cloudreve
 Documentation=https://docs.cloudreve.org
@@ -157,7 +157,7 @@ StandardError=syslog
 WantedBy=multi-user.target
 ```
 
-```shell-session
+```shellsession
 # systemctl enable cloudreve --now
 ```
 
@@ -169,7 +169,7 @@ aria2 在 Ubuntu 官方源里面就有，直接安装即可。
 
 之后在 `/home/steve/.aria2/` 下创建 aria2 需要使用的文件并编辑 `aria2.conf`。[^10][^11][^12]
 
-```shell-session
+```shellsession
 $ cd
 $ mkdir .aria2
 $ cd .aria2/
@@ -199,7 +199,7 @@ http-accept-gzip=true
 
 之后创建文件 `/etc/systemd/system/aria2.service`。
 
-```systemd
+```ini
 [Unit]
 Description=aria2
 
@@ -213,7 +213,7 @@ User=steve
 WantedBy=multi-user.target
 ```
 
-```shell-session
+```shellsession
 # systemctl enable aria2 --now
 ```
 
@@ -241,7 +241,7 @@ RPC Secret
 
 至此，主要目标已经实现，但想要更好地使用 aria2，就需要安装网页前端面板，这里使用 [AriaNg](https://github.com/mayswind/AriaNg)。
 
-```shell-session
+```shellsession
 # apt install unzip
 # mkdir /srv/ariang
 $ cd /srv/ariang/

@@ -80,7 +80,7 @@ IO.puts("Hello world from Elixir")
 
 保存文件为 `simple.exs`，然后用 `elixir` 运行它。
 
-```shell-session
+```shellsession
 $ elixir simple.exs 
 Hello world from Elixir
 ```

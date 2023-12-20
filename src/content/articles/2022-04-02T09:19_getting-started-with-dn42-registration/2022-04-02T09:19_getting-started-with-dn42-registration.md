@@ -25,13 +25,13 @@ Tor 和 I2P 注重匿名性，而 DN42 意不在此，它模拟出一个去中�
 
 在 [DN42 GIT](https://git.dn42.dev) 上注册一个账户，注册完毕等待几分钟后，个人仓库列表中会出现 dn42/registry，此时在终端克隆仓库，并按要求输入用户名和密码。
 
-```shell-session
+```shellsession
 $ git clone https://git.dn42.dev/dn42/registry.git
 ```
 
 身份验证需要生成 GPG 密钥。[^2]
 
-```shell-session
+```shellsession
 $ gpg --full-generate-key
 请选择您要使用的密钥类型：
    (1) RSA 和 RSA
@@ -72,7 +72,7 @@ GnuPG 需要构建用户标识以辨认您的密钥。
 
 填写后会要求设定 GPG 密钥的验证密码。
 
-```shell-session
+```shellsession
 $ gpg --list-secret-keys --keyid-format=long
 sec   ed25519/03E84B5D8BC9255E 2022-03-30 [SC]
       209A091A4428B203E77F212803E84B5D8BC9255E
@@ -277,7 +277,7 @@ source:             DN42
 
 ## 提交[^5][^6]
 
-```shell-session
+```shellsession
 $ git config user.email <电子邮件地址>
 $ git config user.name <用户名>
 $ git config user.signingkey <GPG 密钥 ID>
@@ -291,7 +291,7 @@ $ ./check-pol origin/master <名称>-MNT
 
 如出现错误，须按照提示进行修改。
 
-```shell-session
+```shellsession
 $ git add -A
 $ git commit -am "<提交消息>"
 $ # 此时会提示输入 GPG 密钥的验证密码。

@@ -56,7 +56,7 @@ Android 呢？它是否属于 Linux 发行版？Android 是一个基于 Linux �
 
 想要使用 CLI，我们需要打开系统里的「终端」应用，或者直接使用纯命令行界面（TTY），这时，你会看到类似这样的文字（根据系统配置不同，样式随之不同）：
 
-```shell-session
+```shellsession
 daniel@vm:~$ 
 ```
 
@@ -77,7 +77,7 @@ daniel@vm:~$
 
 多说无益，让我们来实操一下。比如，我们可以使用 `whoami` 指令获取当前登录用户的名称，想要执行这个指令，你需要通过键盘输入这条指令，然后按下回车键，成功执行后界面显示如下。
 
-```shell-session
+```shellsession
 daniel@vm:~$ whoami
 daniel
 daniel@vm:~$ 
@@ -117,7 +117,7 @@ echo
 
 将以上内容放入 `fib.sh` 文件中，然后运行指令，输入长度，查看结果。
 
-```shell-session
+```shellsession
 $ bash fib.sh
 请输入斐波那契数列的长度：10
 斐波那契数列：0 1 1 2 3 5 8 13 21 34
@@ -157,7 +157,7 @@ $ bash fib.sh
 
 首先在 shell 中输入指令以使用 Vim 打开/创建文件。
 
-```shell-session
+```shellsession
 $ vim <文件名称>
 ```
 
@@ -180,7 +180,7 @@ $ vim <文件名称>
 
 最后只需按下回车键，Vim 将保存文件到当前目录下并退出，shell 重新掌管终端。让我们检查一下以上操作是否成功执行。
 
-```shell-session
+```shellsession
 $ cat <文件名称>
 Hello, world!
 ```
@@ -195,7 +195,7 @@ Hello, world!
 
 想要在 CLI 环境中下载文件，可以使用 Wget，使用方法很简单。
 
-```shell-session
+```shellsession
 $ wget <文件网址>
 ```
 
@@ -216,7 +216,7 @@ int main(void) {
 
 接着在 shell 中输入指令：
 
-```shell-session
+```shellsession
 $ clang hello.c -o hello
 ```
 
@@ -224,7 +224,7 @@ $ clang hello.c -o hello
 
 接下来，
 
-```shell-session
+```shellsession
 $ ./hello
 Hello, world!
 ```
@@ -241,7 +241,7 @@ Hello, world!
 
 显然，`hello` 是我们刚刚自己编译好的程序，并不存在于这些目录下，所以 shell 会输出错误 `command not found`。既然如此，怎么做才能运行它呢？方法就是显式指定文件所在的路径。假设 `hello` 位于 `/home/daniel` 下，那么我们可以输入其绝对路径来运行程序。
 
-```shell-session
+```shellsession
 $ /home/daniel/hello
 Hello, world!
 ```
@@ -275,14 +275,14 @@ Hello, world!
 
 例如，之前我们用到了 Clang，假设系统中并没有预装，我们如何使用 APT 安装它呢？
 
-```shell-session
+```shellsession
 # apt update        # 无需每次都执行，定期执行即可
 # apt install clang # 运行后会输出本次操作的相关信息，并提示输入 y 继续，n 中止，输入 y 并按下回车即可
 ```
 
 你可能会发现，这里的指令中有一些 `#`，这代表什么？首先是每行开头的 `#`，他们和 `$` 一样，都是提示符，只不过 `$` 代表处于普通用户下，`#` 代表处于特权用户下，在 Linux 中，特权用户即 root 用户，它是系统自带的用户，拥有最大的权限。由于对系统软件的相关操作需要修改系统文件，所以需要在特权用户下才能正常使用 APT。
 
-```shell-session
+```shellsession
 daniel@vm:~$ su - # 切换到 root 用户，需要输入 root 用户的密码
 Password: 
 root@vm:~# whoami # 查看当前登录用户的名称
@@ -297,7 +297,7 @@ root
 
 日常使用 root 用户登录系统并不安全，但每次需要特权时进行用户切换又略显麻烦，于是我们可以使用 Sudo 对普通用户进行提权。
 
-```shell-session
+```shellsession
 daniel@vm:~$ whoami
 daniel
 daniel@vm:~$ sudo whoami # 区别于 su，需要输入当前登录用户的密码
@@ -307,7 +307,7 @@ root
 
 也就是说，以下两行命令作用相同。
 
-```shell-session
+```shellsession
 # apt update
 $ sudo apt update
 ```
@@ -318,7 +318,7 @@ $ sudo apt update
 
 我们仍以 Debian 的 APT 为例，当执行相关指令时，APT 会读取 `/etc/apt/sources.list` 文件，这个文件包含了系统软件源的配置信息。在 Debian 下，我们可以通过以下指令替换镜像源。
 
-```shell-session
+```shellsession
 # sed -i 's/deb.debian.org/mirrors.bfsu.edu.cn/g' /etc/apt/sources.list
 ```
 
