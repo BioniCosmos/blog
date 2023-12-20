@@ -11,33 +11,29 @@
     "astro": "astro"
   },
   "devDependencies": {
-    "@astrojs/tailwind": "^4.0.0",
-    "@tailwindcss/typography": "^0.5.9",
-    "@types/hast": "^2.3.5",
-    "@types/mdast": "^3.0.12",
-    "@types/node": "^20.4.2",
-    "astro": "^2.8.3",
-    "hast-util-select": "^5.0.5",
-    "hast-util-to-html": "^8.0.4",
-    "hastscript": "^7.2.0",
-    "mdast-util-to-hast": "^12.3.0",
-    "rehype-mathjax": "^4.0.3",
-    "remark-math": "^5.1.1",
-    "tailwindcss": "^3.3.3",
-    "typescript": "^5.1.6",
-    "unified": "^10.1.2",
-    "unist-builder": "^3.0.1",
-    "unist-util-find": "^2.0.0",
-    "unist-util-find-all-before": "^4.0.1",
+    "@astrojs/tailwind": "^5.0.3",
+    "@tailwindcss/typography": "^0.5.10",
+    "@types/hast": "^3.0.3",
+    "@types/mdast": "^4.0.3",
+    "@types/node": "^20.10.5",
+    "astro": "^4.0.6",
+    "hast-util-select": "^6.0.2",
+    "hast-util-to-html": "^9.0.0",
+    "hastscript": "^8.0.0",
+    "mdast-util-to-hast": "^13.0.2",
+    "rehype-mathjax": "^5.0.0",
+    "remark-math": "^6.0.0",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.3.3",
+    "unified": "^11.0.4",
+    "unist-builder": "^4.0.0",
+    "unist-util-find": "^3.0.0",
+    "unist-util-find-all-before": "^5.0.0",
     "unist-util-visit": "^5.0.0"
   },
-  "pnpm": {
-    "patchedDependencies": {
-      "astro@2.8.3": "patches/astro@2.8.3.patch"
-    }
-  },
   "dependencies": {
-    "medium-zoom": "^1.0.8"
+    "@astrojs/check": "^0.3.3",
+    "medium-zoom": "^1.1.0"
   },
   "prettier": {
     "semi": false,

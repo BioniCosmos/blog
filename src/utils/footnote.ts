@@ -1,4 +1,9 @@
-import type { Content, Element, ElementContent, Root as HastRoot } from 'hast'
+import type {
+  Element,
+  ElementContent,
+  Root as HastRoot,
+  RootContent,
+} from 'hast'
 import { selectAll } from 'hast-util-select'
 import { h } from 'hastscript'
 import type { Image, Root as MdastRoot } from 'mdast'
@@ -48,7 +53,7 @@ interface Token {
 
 function parseRawCaption(
   caption: string,
-  refs: Array<Content>
+  refs: Array<RootContent>
 ): Array<ElementContent> {
   const matches = Array.from(caption.matchAll(/\[\^(\d+)\]/g), (match) => ({
     start: match.index!,

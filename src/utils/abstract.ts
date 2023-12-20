@@ -1,5 +1,5 @@
 import { toHtml } from 'hast-util-to-html'
-import type { Root } from 'mdast'
+import type { Html, Root } from 'mdast'
 import { toHast } from 'mdast-util-to-hast'
 import type { Plugin } from 'unified'
 import { u } from 'unist-builder'
@@ -11,9 +11,14 @@ export const abstract: Plugin<[], Root> = () => (tree, file) => {
   if (more === undefined) {
     return
   }
-  const [_title, ...abstract] = findAllBefore(tree, more)
+  const [_title, ...abstract] = findAllBefore(tree, more as Html)
   const abstractTree = u('root', abstract)
-  ;(file.data.astro as any).frontmatter.abstract = toHtml(
-    toHast(abstractTree as any)!
-  )
+  const astro = file.data.astro as Astro
+  astro.frontmatter.abstract = toHtml(toHast(abstractTree))
+}
+
+interface Astro {
+  frontmatter: {
+    abstract: string
+  }
 }

@@ -2,12 +2,12 @@ import type { MarkdownInstance } from 'astro'
 import { getCollection } from 'astro:content'
 import type { Image } from '../content/config'
 import {
-  DateTime,
-  Nav,
   NavInfo,
   getTitle,
   parseFilePath,
   rendered,
+  type DateTime,
+  type Nav,
 } from '../utils/article'
 
 export interface Article {

@@ -17,7 +17,4 @@ export default defineConfig({
     rehypePlugins: [imageCaption, removeParagraph, rehypeMathjax],
     syntaxHighlight: 'prism',
   },
-  experimental: {
-    assets: true,
-  },
 })
