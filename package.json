@@ -11,19 +11,19 @@
     "astro": "astro"
   },
   "devDependencies": {
-    "@astrojs/tailwind": "^5.0.3",
+    "@astrojs/tailwind": "^5.1.0",
     "@tailwindcss/typography": "^0.5.10",
-    "@types/hast": "^3.0.3",
+    "@types/hast": "^3.0.4",
     "@types/mdast": "^4.0.3",
-    "@types/node": "^20.10.5",
-    "astro": "^4.0.6",
+    "@types/node": "^20.11.16",
+    "astro": "^4.3.2",
     "hast-util-select": "^6.0.2",
     "hast-util-to-html": "^9.0.0",
-    "hastscript": "^8.0.0",
-    "mdast-util-to-hast": "^13.0.2",
-    "rehype-mathjax": "^5.0.0",
+    "hastscript": "^9.0.0",
+    "mdast-util-to-hast": "^13.1.0",
+    "rehype-mathjax": "^6.0.0",
     "remark-math": "^6.0.0",
-    "tailwindcss": "^3.4.0",
+    "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3",
     "unified": "^11.0.4",
     "unist-builder": "^4.0.0",
@@ -32,9 +32,9 @@
     "unist-util-visit": "^5.0.0"
   },
   "dependencies": {
-    "@astrojs/check": "^0.3.3",
+    "@astrojs/check": "^0.4.1",
     "medium-zoom": "^1.1.0",
-    "sharp": "^0.33.1"
+    "sharp": "^0.33.2"
   },
   "prettier": {
     "semi": false,
