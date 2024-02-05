@@ -43,41 +43,53 @@ Compose 最低支持 API 21（Android 5.0），所以它能在大多数 Android 
 ```kotlin
 val text = findViewById<TextView>(R.id.textView)
 val button = findViewById<Button>(R.id.button)
-var counter = 0
+var count = 0
 button.setOnClickListener {
-    text.text = "${counter++}"
+    text.text = "${count++}"
 }
 ```
 
 ```kotlin
 Column {
-    var counter by remember { mutableStateOf(0) }
-    Text(text = "$counter")
-    Button(onClick = { counter++ }) {
+    var count by remember { mutableStateOf(0) }
+    Text(text = "$count")
+    Button(onClick = { count++ }) {
         Text(text = "+1")
     }
 }
 ```
 
-### Vanilla JS 对比 Vue.js
+### Vanilla JS 对比 React/Vue
 
 ```typescript
 const text = document.getElementById('text')!
 const button = document.getElementById('button')!
-let counter = 0
+let count = 0
 button.addEventListener('click', () => {
-  text.textContent = `${counter++}`
+  text.textContent = `${count++}`
 })
 ```
 
-```html
+```tsx
+export default function Counter() {
+  const [count, setcount] = useState(0)
+  return (
+    <>
+      <div>{count}</div>
+      <button onClick={() => setcount(count + 1)}>+1</button>
+    </>
+  )
+}
+```
+
+```vue
 <script setup lang="ts">
-const counter = ref(0)
+const count = ref(0)
 </script>
 
 <template>
-  <div>{{ counter }}</div>
-  <button type="button" @click="() => { counter++ }">+1</button>
+  <div>{{ count }}</div>
+  <button @click="() => count++">+1</button>
 </template>
 ```
 

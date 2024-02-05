@@ -1,5 +1,5 @@
 ---
-photo: ./cover.webp
+image: ./cover.webp
 ---
 # DN42 入坑记录（注册篇）
 
