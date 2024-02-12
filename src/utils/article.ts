@@ -44,5 +44,5 @@ export function parseFilePath(filePath: string): {
 } {
   const [dateTime = '', path = ''] = basename(filePath, '.md').split('_')
   const [date = '', time = ''] = dateTime.split('T')
-  return { path, dateTime: { date, time } }
+  return { path: `/${path}`, dateTime: { date, time } }
 }
