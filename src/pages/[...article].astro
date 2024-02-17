@@ -3,10 +3,10 @@ import type { GetStaticPaths, InferGetStaticPropsType } from 'astro'
 import { Image } from 'astro:assets'
 import Navigator from '../components/Navigator.astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
-import { getLocalArticles } from '../utils/article'
+import { getArticles } from '../utils/article'
 
 export const getStaticPaths = (async () => {
-  return (await getLocalArticles()).map((article) => ({
+  return (await getArticles()).map((article) => ({
     params: { article: article.path },
     props: { ...article },
   }))

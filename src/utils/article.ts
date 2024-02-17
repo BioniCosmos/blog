@@ -1,16 +1,41 @@
-import type { MarkdownInstance } from 'astro'
+import type { MarkdownInstance, PaginateFunction } from 'astro'
 import { getCollection, type CollectionEntry } from 'astro:content'
-import { basename } from 'node:path'
+import { basename, join } from 'node:path'
 import type { Image } from '../content/config'
 
-export async function getLocalArticles(
-  lang: 'zh' | 'en' = 'zh'
-): Promise<Article[]> {
-  const localArticles = await getCollection('articles', ({ id }) =>
-    id.startsWith(`${lang}/`)
-  )
-  const renderedArticles = await Promise.all(localArticles.map(render))
-  return renderedArticles.toSorted(compareDateTime).map(addNav).toReversed()
+export async function getArticles() {
+  const allArticles = await getAllArticles()
+  return allArticles.flat()
+}
+
+export async function getLocalArticles(lang: Lang): Promise<Article[]> {
+  if (!articles.has(lang)) {
+    const localCollection = await getCollection('articles', ({ id }) =>
+      id.startsWith(`${lang}/`)
+    )
+    const renderedArticles = await Promise.all(
+      localCollection.map(render(lang))
+    )
+    const localArticles = renderedArticles
+      .toSorted(compareDateTime)
+      .map(addNav)
+      .toReversed()
+    articles.set(lang, localArticles)
+  }
+  return articles.get(lang)!
+}
+
+export function getAllArticles() {
+  return Promise.all(langs.map((lang) => getLocalArticles(lang)))
+}
+
+export function addLangPrefix(page: ReturnType<PaginateFunction>, i: number) {
+  return langs[i] !== defaultLang
+    ? page.map(({ params, props }) => ({
+        params: { page: join(`/${langs[i]}`, params.page ?? '') },
+        props,
+      }))
+    : page
 }
 
 export interface Article {
@@ -43,25 +68,34 @@ class DateTime {
 
 type NoNav = Omit<Article, 'nav'>
 
-async function render(article: CollectionEntry<'articles'>): Promise<NoNav> {
-  const {
-    Content,
-    headings,
-    remarkPluginFrontmatter: { abstract },
-  } = await article.render()
+const langs = ['zh', 'en'] as const
+const defaultLang: Lang = 'zh'
+type Lang = (typeof langs)[number]
 
-  const title = headings.find(({ depth }) => depth === 1)?.text ?? ''
-  const image = article.data.image
+function render(lang: Lang) {
+  return async (article: CollectionEntry<'articles'>): Promise<NoNav> => {
+    const {
+      Content,
+      headings,
+      remarkPluginFrontmatter: { abstract },
+    } = await article.render()
 
-  function parseFilePath(filePath: string): {
-    path: string
-    dateTime: DateTime
-  } {
-    const [dateTime = '', path = ''] = basename(filePath, '.md').split('_')
-    return { path: `/${path}`, dateTime: new DateTime(dateTime) }
+    const title = headings.find(({ depth }) => depth === 1)?.text ?? ''
+    const image = article.data.image
+
+    function parseFilePath(filePath: string): {
+      path: string
+      dateTime: DateTime
+    } {
+      const [dateTime = '', path = ''] = basename(filePath, '.md').split('_')
+      return {
+        path: join(lang !== defaultLang ? `/${lang}` : '', `/${path}`),
+        dateTime: new DateTime(dateTime),
+      }
+    }
+
+    return { ...parseFilePath(article.id), title, Content, abstract, image }
   }
-
-  return { ...parseFilePath(article.id), title, Content, abstract, image }
 }
 
 function compareDateTime(a: NoNav, b: NoNav) {
@@ -83,3 +117,5 @@ function addNav(article: NoNav, i: number, articles: NoNav[]): Article {
   } as Nav
   return { ...article, nav }
 }
+
+const articles = new Map<Lang, Article[]>()
