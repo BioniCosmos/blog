@@ -2,10 +2,10 @@
 import type { GetStaticPaths, Page } from 'astro'
 import Paginator from '../components/Paginator.astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
-import { articles, type Article } from './article'
+import { getLocalArticles, type Article } from '../utils/article'
 
 export const getStaticPaths = (async ({ paginate }) => {
-  return paginate((await articles()).reverse(), { pageSize: 10 })
+  return paginate(await getLocalArticles(), { pageSize: 10 })
 }) satisfies GetStaticPaths
 
 type Props = { page: Page<Article> }

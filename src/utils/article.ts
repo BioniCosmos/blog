@@ -1,48 +1,85 @@
-import type { MarkdownHeading } from 'astro'
-import type { getCollection } from 'astro:content'
+import type { MarkdownInstance } from 'astro'
+import { getCollection, type CollectionEntry } from 'astro:content'
 import { basename } from 'node:path'
+import type { Image } from '../content/config'
 
-export interface Nav {
-  prev: NavInfo | null
-  next: NavInfo | null
+export async function getLocalArticles(
+  lang: 'zh' | 'en' = 'zh'
+): Promise<Article[]> {
+  const localArticles = await getCollection('articles', ({ id }) =>
+    id.startsWith(`${lang}/`)
+  )
+  const renderedArticles = await Promise.all(localArticles.map(render))
+  return renderedArticles.toSorted(compareDateTime).map(addNav).toReversed()
 }
 
-interface NavInfo {
+export interface Article {
   path: string
   title: string
+  dateTime: DateTime
+  Content: MarkdownInstance<{}>['Content']
+  abstract: string
+  image: Image
+  nav: Nav
 }
 
-export interface DateTime {
+export interface Nav {
+  prev: Article | null
+  next: Article | null
+}
+
+class DateTime {
   date: string
   time: string
-}
 
-export async function rendered(
-  entries: Awaited<ReturnType<typeof getCollection>>
-) {
-  const renders = await Promise.all(entries.map((entry) => entry.render()))
-  return entries.map((entry, i) => ({ ...entry, render: renders[i]! }))
-}
+  constructor(dateTime: string) {
+    ;[this.date = '', this.time = ''] = dateTime.split('T')
+  }
 
-export function NavInfo({
-  id,
-  render: { headings },
-}: Awaited<ReturnType<typeof rendered>>[number]): NavInfo {
-  return {
-    path: parseFilePath(id).path,
-    title: getTitle(headings),
+  toString() {
+    return `${this.date} ${this.time}`
   }
 }
 
-export function getTitle(headings: Array<MarkdownHeading>) {
-  return headings.find(({ depth }) => depth === 1)?.text ?? ''
+type NoNav = Omit<Article, 'nav'>
+
+async function render(article: CollectionEntry<'articles'>): Promise<NoNav> {
+  const {
+    Content,
+    headings,
+    remarkPluginFrontmatter: { abstract },
+  } = await article.render()
+
+  const title = headings.find(({ depth }) => depth === 1)?.text ?? ''
+  const image = article.data.image
+
+  function parseFilePath(filePath: string): {
+    path: string
+    dateTime: DateTime
+  } {
+    const [dateTime = '', path = ''] = basename(filePath, '.md').split('_')
+    return { path: `/${path}`, dateTime: new DateTime(dateTime) }
+  }
+
+  return { ...parseFilePath(article.id), title, Content, abstract, image }
 }
 
-export function parseFilePath(filePath: string): {
-  path: string
-  dateTime: DateTime
-} {
-  const [dateTime = '', path = ''] = basename(filePath, '.md').split('_')
-  const [date = '', time = ''] = dateTime.split('T')
-  return { path: `/${path}`, dateTime: { date, time } }
+function compareDateTime(a: NoNav, b: NoNav) {
+  const s1 = a.dateTime.toString()
+  const s2 = b.dateTime.toString()
+  if (s1 < s2) {
+    return -1
+  }
+  if (s1 > s2) {
+    return 1
+  }
+  return 0
+}
+
+function addNav(article: NoNav, i: number, articles: NoNav[]): Article {
+  const nav = {
+    prev: i > 0 ? articles[i - 1]! : null,
+    next: i < articles.length - 1 ? articles[i + 1]! : null,
+  } as Nav
+  return { ...article, nav }
 }
