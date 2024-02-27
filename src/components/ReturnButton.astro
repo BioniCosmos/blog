@@ -1,0 +1,25 @@
+---
+import ArrowUp from '../components/icons/ArrowUp.astro'
+---
+
+<button
+  id="return"
+  class="fixed bottom-6 right-6 hidden shadow-md rounded-md p-2 bg-gray-100"
+>
+  <ArrowUp />
+</button>
+
+<script>
+  const returnButton = document.querySelector('#return')
+  returnButton?.addEventListener('click', () => {
+    scrollTo({ top: 0, behavior: 'smooth' })
+  })
+
+  document.addEventListener('scroll', () => {
+    if (document.documentElement.scrollTop > 100) {
+      returnButton?.classList.remove('hidden')
+    } else {
+      returnButton?.classList.add('hidden')
+    }
+  })
+</script>

@@ -1,4 +1,5 @@
 ---
+import ReturnButton from '../components/ReturnButton.astro'
 import '../styles/font-han.css'
 import FooterLayout from './FooterLayout.astro'
 import HeaderLayout from './HeaderLayout.astro'
@@ -27,5 +28,6 @@ function getTitle(base: string) {
       <slot />
     </main>
     <FooterLayout />
+    <ReturnButton />
   </body>
 </html>
