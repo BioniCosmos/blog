@@ -15,12 +15,13 @@
     "@tailwindcss/typography": "^0.5.10",
     "@types/hast": "^3.0.4",
     "@types/mdast": "^4.0.3",
-    "@types/node": "^20.11.16",
-    "astro": "^4.3.2",
+    "@types/node": "^20.11.24",
+    "astro": "^4.4.12",
     "hast-util-select": "^6.0.2",
     "hast-util-to-html": "^9.0.0",
     "hastscript": "^9.0.0",
     "mdast-util-to-hast": "^13.1.0",
+    "playwright": "^1.42.1",
     "rehype-mathjax": "^6.0.0",
     "remark-math": "^6.0.0",
     "tailwindcss": "^3.4.1",
@@ -32,8 +33,10 @@
     "unist-util-visit": "^5.0.0"
   },
   "dependencies": {
-    "@astrojs/check": "^0.4.1",
+    "@astrojs/check": "^0.5.6",
     "medium-zoom": "^1.1.0",
+    "rehype-mermaid": "^2.1.0",
+    "remark-mermaidjs": "^6.0.0",
     "sharp": "^0.33.2"
   },
   "prettier": {
