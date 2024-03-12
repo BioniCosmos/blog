@@ -314,27 +314,7 @@ Xray 为我们提供了 DNS 模块：
    2. `"<server domain>": "<server address>"`：直接指定服务器 IP，用于减少 DNS 请求，同时避免流量回环。（服务端 IP 是多少？ → 需要代理 DNS 查询请求 → 服务端 IP 是多少？ → ……）
 3. `servers`：DNS 分流核心逻辑，简单来说就是「各查各的」，具体流程请看以下流程图。
 
-   ```mermaid
-   ---
-   title: 查询域名
-   ---
-   flowchart TB
-       start((开始))-->isCnDomain[是否为国内域名？]
-       isCnDomain-- 是 -->cn[国内服务器查询]
-       isCnDomain-- 否 -->global[国外服务器查询]
-
-       cn-->result[返回结果]
-
-       global-->isNonCnIP[是否返回非国内 IP？]
-       isNonCnIP-- 是 -->result
-       isNonCnIP-- 否 -->cn
-
-       result-->queryIsSuccessful[查询是否成功？]
-       queryIsSuccessful-- 是 --> finish((最终结果))
-       queryIsSuccessful-- 否 --> fallback[备用服务器查询]
-
-       fallback --> finish
-   ```
+   ![DNS 模块工作流程](./dns-module-workflow.svg)
 
 只是配置好 DNS 模块还不够，我们需要通过路由模块将流量从 `dns-in` Dokodemo Door 入站导向 `dns-out` DNS 出站。
 
@@ -370,33 +350,7 @@ Xray 为我们提供了 DNS 模块：
 
 最后的最后，我们看一看修改后的流程图。
 
-```mermaid
----
-title: 查询域名
----
-flowchart TB
-    start((开始))-->isA[是 A 或 AAAA 记录]
-    isA-- 是 -->isCnDomain[是否为国内域名？]
-    isA-- 否 -->forward[直接转发]
-
-    subgraph DNS 模块
-    isCnDomain-- 是 -->cn[国内服务器查询]
-    isCnDomain-- 否 -->global[国外服务器查询]
-
-    cn-->result[返回结果]
-
-    global-->isNonCnIP[是否返回非国内 IP？]
-    isNonCnIP-- 是 -->result
-    isNonCnIP-- 否 -->cn
-
-    result-->queryIsSuccessful[查询是否成功？]
-    queryIsSuccessful-- 否 --> fallback[备用服务器查询]
-    end
-
-    queryIsSuccessful-- 是 --> finish((最终结果))
-    fallback --> finish
-    forward-->finish
-```
+![DNS 查询整体流程](./dns-query-overall-flow.svg)
 
 ### 配置路由
 

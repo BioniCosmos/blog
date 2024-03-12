@@ -2,7 +2,6 @@ import tailwind from '@astrojs/tailwind'
 import { defineConfig } from 'astro/config'
 import rehypeMathjax from 'rehype-mathjax'
 import remarkMath from 'remark-math'
-import remarkMermaid from 'remark-mermaidjs'
 import { abstract } from './src/utils/abstract'
 import {
   extractRefInImageCaption,
@@ -15,12 +14,7 @@ import { openExternalLinksInNewTab } from './src/utils/link'
 export default defineConfig({
   integrations: [tailwind()],
   markdown: {
-    remarkPlugins: [
-      abstract,
-      extractRefInImageCaption,
-      remarkMath,
-      remarkMermaid,
-    ],
+    remarkPlugins: [abstract, extractRefInImageCaption, remarkMath],
     rehypePlugins: [
       imageCaption,
       removeParagraph,
