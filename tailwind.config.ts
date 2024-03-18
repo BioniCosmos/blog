@@ -55,7 +55,7 @@ export default {
           '&::before': { content: '"["' },
           '&::after': { content: '"]"' },
         },
-        img: {
+        'img, iframe': {
           marginLeft: 'auto',
           marginRight: 'auto',
         },

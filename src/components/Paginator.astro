@@ -1,8 +1,8 @@
 ---
 import type { Page } from 'astro'
+import ChevronLeftIcon from 'astro-heroicons/outline/ChevronLeft.astro'
+import ChevronRightIcon from 'astro-heroicons/outline/ChevronRight.astro'
 import type { Article } from '../utils/article'
-import ChevronLeftIcon from './icons/ChevronLeftIcon.astro'
-import ChevronRightIcon from './icons/ChevronRightIcon.astro'
 
 interface Props {
   page: Page<Article>
@@ -16,18 +16,18 @@ const { page } = Astro.props
     <nav class="flex justify-between items-center py-8 px-2 text-sm text-gray-600">
       {page.url.prev !== undefined ? (
         <a href={page.url.prev} aria-label="Previous">
-          <ChevronLeftIcon class="w-5 h-5" />
+          <ChevronLeftIcon class="size-6" />
         </a>
       ) : (
-        <div class="w-5" />
+        <div class="size-6" />
       )}
       <div>{`${page.currentPage}/${page.lastPage}`}</div>
       {page.url.next !== undefined ? (
         <a href={page.url.next} aria-label="Next">
-          <ChevronRightIcon class="w-5 h-5" />
+          <ChevronRightIcon class="size-6" />
         </a>
       ) : (
-        <div class="w-5" />
+        <div class="size-6" />
       )}
     </nav>
   )

@@ -8,6 +8,9 @@ dependencies:
   '@astrojs/check':
     specifier: ^0.5.6
     version: 0.5.7(typescript@5.4.2)
+  astro-heroicons:
+    specifier: ^2.1.1
+    version: 2.1.1
   medium-zoom:
     specifier: ^1.1.0
     version: 1.1.0
@@ -1298,6 +1301,10 @@ packages:
   /array-iterate@2.0.1:
     resolution: {integrity: sha512-I1jXZMjAgCMmxT4qxXfPXa6SthSoE8h6gkSI9BGGNv8mP8G/v0blc+qFnZu6K42vTOiuME596QaLO0TP3Lk0xg==}
     dev: true
+
+  /astro-heroicons@2.1.1:
+    resolution: {integrity: sha512-NcQIhCyF85hrbJEFssEVGo2t2vha1CqQilNfy/POTl1bknZFANjOjbKG6+Wndvxmumj4O8RTmUUNU7k8UDbw9g==}
+    dev: false
 
   /astro@4.5.1(@types/node@20.11.26)(typescript@5.4.2):
     resolution: {integrity: sha512-xqSBxeDZFUUgHl+npNwgoe6taTOCI8sJNwqWJaK3t/vcCHdfYJX00Tr9g43w/cYKPoTN4wKbNktbKYJZAbE3ZQ==}

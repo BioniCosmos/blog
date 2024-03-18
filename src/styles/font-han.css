@@ -4,7 +4,7 @@
   unicode-range: U+4E00-9FFF, U+3400-4DBF, U+002F, U+00B7, U+2E80-2EFF,
     U+F900-FAFF, U+FF??, U+1F200-1F259, U+1F266-1F2FF, U+20000-2A6DF,
     U+2A700-2B73F, U+2B740-2B81F, U+2B820-2CEAF, U+2F800-2FA1F, U+2F00-303F,
-    U+3100-312F, U+3190-31EF, U+0020, U+2E3A, U+2013, U+2014, U+2026;
+    U+3100-312F, U+3190-31EF, U+2E3A, U+2013, U+2014, U+2026;
   src: local(Noto Sans CJK SC Thin), local(Source Han Sans SC ExtraLight),
     local(Noto Sans SC Thin), local(Source Han Sans CN ExtraLight),
     local(PingFang SC Ultralight);
@@ -16,7 +16,7 @@
   unicode-range: U+4E00-9FFF, U+3400-4DBF, U+002F, U+00B7, U+2E80-2EFF,
     U+F900-FAFF, U+FF??, U+1F200-1F259, U+1F266-1F2FF, U+20000-2A6DF,
     U+2A700-2B73F, U+2B740-2B81F, U+2B820-2CEAF, U+2F800-2FA1F, U+2F00-303F,
-    U+3100-312F, U+3190-31EF, U+0020, U+2E3A, U+2013, U+2014, U+2026;
+    U+3100-312F, U+3190-31EF, U+2E3A, U+2013, U+2014, U+2026;
   src: local(Noto Sans CJK SC Light), local(Source Han Sans SC Light),
     local(Noto Sans SC Light), local(Source Han Sans CN Light),
     local(PingFang SC Thin);
@@ -28,7 +28,7 @@
   unicode-range: U+4E00-9FFF, U+3400-4DBF, U+002F, U+00B7, U+2E80-2EFF,
     U+F900-FAFF, U+FF??, U+1F200-1F259, U+1F266-1F2FF, U+20000-2A6DF,
     U+2A700-2B73F, U+2B740-2B81F, U+2B820-2CEAF, U+2F800-2FA1F, U+2F00-303F,
-    U+3100-312F, U+3190-31EF, U+0020, U+2E3A, U+2013, U+2014, U+2026;
+    U+3100-312F, U+3190-31EF, U+2E3A, U+2013, U+2014, U+2026;
   src: local(Noto Sans CJK SC DemiLight), local(Source Han Sans SC Normal),
     local(Noto Sans SC DemiLight), local(Source Han Sans CN Normal),
     local(PingFang SC Light);
@@ -40,7 +40,7 @@
   unicode-range: U+4E00-9FFF, U+3400-4DBF, U+002F, U+00B7, U+2E80-2EFF,
     U+F900-FAFF, U+FF??, U+1F200-1F259, U+1F266-1F2FF, U+20000-2A6DF,
     U+2A700-2B73F, U+2B740-2B81F, U+2B820-2CEAF, U+2F800-2FA1F, U+2F00-303F,
-    U+3100-312F, U+3190-31EF, U+0020, U+2E3A, U+2013, U+2014, U+2026;
+    U+3100-312F, U+3190-31EF, U+2E3A, U+2013, U+2014, U+2026;
   src: local(Noto Sans CJK SC Regular), local(Source Han Sans SC),
     local(Noto Sans SC), local(Source Han Sans CN), local(PingFang SC Regular);
 }
@@ -51,7 +51,7 @@
   unicode-range: U+4E00-9FFF, U+3400-4DBF, U+002F, U+00B7, U+2E80-2EFF,
     U+F900-FAFF, U+FF??, U+1F200-1F259, U+1F266-1F2FF, U+20000-2A6DF,
     U+2A700-2B73F, U+2B740-2B81F, U+2B820-2CEAF, U+2F800-2FA1F, U+2F00-303F,
-    U+3100-312F, U+3190-31EF, U+0020, U+2E3A, U+2013, U+2014, U+2026;
+    U+3100-312F, U+3190-31EF, U+2E3A, U+2013, U+2014, U+2026;
   src: local(Noto Sans CJK SC Medium), local(Source Han Sans SC Medium),
     local(Noto Sans SC Medium), local(Source Han Sans CN Medium),
     local(PingFang SC Medium);
@@ -63,7 +63,7 @@
   unicode-range: U+4E00-9FFF, U+3400-4DBF, U+002F, U+00B7, U+2E80-2EFF,
     U+F900-FAFF, U+FF??, U+1F200-1F259, U+1F266-1F2FF, U+20000-2A6DF,
     U+2A700-2B73F, U+2B740-2B81F, U+2B820-2CEAF, U+2F800-2FA1F, U+2F00-303F,
-    U+3100-312F, U+3190-31EF, U+0020, U+2E3A, U+2013, U+2014, U+2026;
+    U+3100-312F, U+3190-31EF, U+2E3A, U+2013, U+2014, U+2026;
   src: local(Noto Sans CJK SC Medium), local(Source Han Sans SC Medium),
     local(Noto Sans SC Medium), local(Source Han Sans CN Medium),
     local(PingFang SC Medium), local(PingFang SC Semibold);
@@ -75,7 +75,7 @@
   unicode-range: U+4E00-9FFF, U+3400-4DBF, U+002F, U+00B7, U+2E80-2EFF,
     U+F900-FAFF, U+FF??, U+1F200-1F259, U+1F266-1F2FF, U+20000-2A6DF,
     U+2A700-2B73F, U+2B740-2B81F, U+2B820-2CEAF, U+2F800-2FA1F, U+2F00-303F,
-    U+3100-312F, U+3190-31EF, U+0020, U+2E3A, U+2013, U+2014, U+2026;
+    U+3100-312F, U+3190-31EF, U+2E3A, U+2013, U+2014, U+2026;
   src: local(Noto Sans CJK SC Bold), local(Source Han Sans SC Bold),
     local(Noto Sans SC Bold), local(Source Han Sans CN Bold);
 }
@@ -86,7 +86,7 @@
   unicode-range: U+4E00-9FFF, U+3400-4DBF, U+002F, U+00B7, U+2E80-2EFF,
     U+F900-FAFF, U+FF??, U+1F200-1F259, U+1F266-1F2FF, U+20000-2A6DF,
     U+2A700-2B73F, U+2B740-2B81F, U+2B820-2CEAF, U+2F800-2FA1F, U+2F00-303F,
-    U+3100-312F, U+3190-31EF, U+0020, U+2E3A, U+2013, U+2014, U+2026;
+    U+3100-312F, U+3190-31EF, U+2E3A, U+2013, U+2014, U+2026;
   src: local(Noto Sans CJK SC Black), local(Source Han Sans SC Heavy),
     local(Noto Sans SC Black), local(Source Han Sans CN Heavy);
 }

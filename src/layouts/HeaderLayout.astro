@@ -1,15 +1,55 @@
 ---
-import TagIcon from '../components/icons/TagIcon.astro'
-import UserIcon from '../components/icons/UserIcon.astro'
+import LanguageIcon from 'astro-heroicons/outline/Language.astro'
+import TagIcon from 'astro-heroicons/outline/Tag.astro'
+import UserIcon from 'astro-heroicons/outline/User.astro'
+import { join } from 'node:path'
+import { defaultLang, languages, type Lang } from '../utils/article'
+import { hasTranslation } from '../utils/i18n'
+
+interface Props {
+  currentLang: Lang
+  id: string | null
+}
+
+const { currentLang, id } = Astro.props
+
+function getTranslationLink(lang: Lang) {
+  const rootPath = `/${lang !== defaultLang ? lang : ''}`
+  if (id === null || !hasTranslation(id, lang)) {
+    return rootPath
+  }
+  return join(rootPath, id)
+}
 ---
 
 <header class="p-4 flex justify-between items-center">
-  <a href="/" lang="en-US" class="text-xl font-serif font-bold">Daniel’s Blog</a
+  <a
+    href={currentLang === defaultLang ? '/' : `/${currentLang}`}
+    lang="en-US"
+    class="text-xl font-serif font-bold">Daniel’s Blog</a
   >
-  <nav class="flex justify-center items-center gap-5">
-    <a href="/topics/" aria-label="Topics"><TagIcon class="w-5 h-5" /></a>
+  <nav class="flex justify-center items-center gap-4">
+    <a href="/topics/" aria-label="Topics"><TagIcon class="size-6" /></a>
+    <label class="relative">
+      <LanguageIcon class="size-6" />
+      <select
+        class="opacity-0 absolute top-0 left-0 size-6"
+        onchange="location.assign(this.value)"
+      >
+        {
+          Object.entries(languages).map(([lang, label]) => (
+            <option
+              value={getTranslationLink(lang as Lang)}
+              selected={lang === currentLang}
+            >
+              {label}
+            </option>
+          ))
+        }
+      </select>
+    </label>
     <a href="https://me.moecm.com" aria-label="Me"
-      ><UserIcon class="w-5 h-5" /></a
+      ><UserIcon class="size-6" /></a
     >
   </nav>
 </header>
