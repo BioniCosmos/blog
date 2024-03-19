@@ -53,6 +53,6 @@ web log -> weblog -> we blog -> blog
 
 因琐事甚多，在接下来的半年里，博客将迟缓更新甚至暂停更新。但，此时的厚积何尝不是为了彼时的薄发？
 
-<p lang="en-US">Everything’s a dream. Nothing’s true. May time carry us to BioniCosmos.</p>
+Everything’s a dream. Nothing’s true. May time carry us to BioniCosmos.
 
 祝，新年快乐！

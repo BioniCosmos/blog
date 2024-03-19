@@ -30,7 +30,7 @@ const { page, language } = Astro.props
         </h2>
         <div class="prose max-w-none mt-1" set:html={article.abstract} />
         <div class="text-gray-400 text-sm mt-2">
-          <time lang="en-US">{article.dateTime.date}</time>
+          <time>{article.dateTime.date}</time>
         </div>
       </div>
     ))
