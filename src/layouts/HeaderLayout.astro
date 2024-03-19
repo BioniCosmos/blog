@@ -36,7 +36,7 @@ async function getTranslationPath(language: Language, id?: string) {
       <LanguageIcon class="size-6" />
       <select
         class="opacity-0 absolute top-0 left-0 size-6"
-        onchange="location.assign(this.value)"
+        id="language-selector"
       >
         {
           await Promise.all(
@@ -57,3 +57,10 @@ async function getTranslationPath(language: Language, id?: string) {
     >
   </nav>
 </header>
+
+<script>
+  const selector = document.querySelector('#language-selector')
+  selector?.addEventListener('change', (event) => {
+    location.assign((event.target as HTMLSelectElement).value)
+  })
+</script>
