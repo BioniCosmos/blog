@@ -1,18 +1,48 @@
-import {
-  langs,
-  queryArticlesById,
-  type Lang,
-  type Translations,
-} from './article'
+import { join } from 'node:path'
+import { getArticles } from './article'
 
-const translations = new Map<string, Translations>()
+export const langMap = { zh: '中文', en: 'English' } as const
+export const defaultLang = 'zh'
 
-export function hasTranslation(id: string, lang: Lang) {
-  if (!translations.has(id)) {
-    const articles = queryArticlesById(id)
-    const translated = articles.map((article) => article.lang)
-    const all = langs.map((lang) => [lang, translated.includes(lang)])
-    translations.set(id, Object.fromEntries(all))
-  }
-  return translations.get(id)![lang]
+type Lang = keyof typeof langMap
+type Label = (typeof langMap)[Lang]
+
+export interface Language {
+  lang: Lang
+  label: Label
+  isDefault: boolean
 }
+export const languages = Object.entries(langMap).map(
+  ([lang, label]) =>
+    ({
+      lang,
+      label,
+      isDefault: lang === defaultLang,
+    } as Language)
+)
+
+export function getRootPath(language: Language) {
+  return language.isDefault ? '/' : `/${language.lang}`
+}
+
+export function getArticlePath(id: string, language: Language) {
+  return join(getRootPath(language), id)
+}
+
+export function getPagePath(pageIndex: string | undefined, language: Language) {
+  return join(getRootPath(language), pageIndex ?? '')
+}
+
+export async function articleHasTranslation(id: string, language: Language) {
+  if (!translations.has(id)) {
+    const articles = await getArticles()
+    const articlesLangMap = articles.map(({ language, articles }) => [
+      language.lang,
+      articles.find((article) => article.id === id) !== undefined,
+    ])
+    translations.set(id, Object.fromEntries(articlesLangMap))
+  }
+  return translations.get(id)![language.lang]
+}
+
+const translations = new Map<string, Record<Lang, boolean>>()

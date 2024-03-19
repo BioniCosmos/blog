@@ -2,28 +2,26 @@
 import type { GetStaticPaths, Page } from 'astro'
 import Paginator from '../components/Paginator.astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
-import { addLang, getArticles, type Article, type Lang } from '../utils/article'
+import { addLanguage, getArticles, type Article } from '../utils/article'
+import type { Language } from '../utils/i18n'
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const articles = Object.entries(await getArticles()) as [Lang, Article[]][]
+  const articles = await getArticles()
   return articles
-    .map(
-      ([lang, localArticles]) =>
-        [lang, paginate(localArticles, { pageSize: 10 })] as [
-          Lang,
-          ReturnType<typeof paginate>,
-        ]
-    )
-    .map(addLang)
+    .map(({ language, articles }) => ({
+      language,
+      pages: paginate(articles, { pageSize: 10 }),
+    }))
+    .map(addLanguage)
     .flat()
 }) satisfies GetStaticPaths
 
-type Props = { page: Page<Article>; lang: Lang }
+type Props = { page: Page<Article>; language: Language }
 
-const { page, lang } = Astro.props
+const { page, language } = Astro.props
 ---
 
-<BaseLayout currentLang={lang} id={null} translations={null}>
+<BaseLayout currentLanguage={language}>
   {
     page.data.map((article) => (
       <div class="px-4 sm:px-6 my-6">

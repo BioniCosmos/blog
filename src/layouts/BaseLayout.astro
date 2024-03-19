@@ -1,18 +1,12 @@
 ---
 import ReturnButton from '../components/ReturnButton.astro'
 import '../styles/font-han.css'
-import type { Lang, Translations } from '../utils/article'
 import FooterLayout from './FooterLayout.astro'
-import HeaderLayout from './HeaderLayout.astro'
+import HeaderLayout, { type Props as HeaderProps } from './HeaderLayout.astro'
 
-interface Props {
-  title?: string
-  currentLang: Lang
-  id: string | null
-  translations: Translations | null
-}
+type Props = { title?: string } & HeaderProps
 
-const { title, ...props } = Astro.props
+const { title, ...headerProps } = Astro.props
 
 function getTitle(base: string) {
   return title?.concat(` | ${base}`) ?? base
@@ -27,7 +21,7 @@ function getTitle(base: string) {
     <link rel="icon" href="/images/logo.png" />
   </head>
   <body>
-    <HeaderLayout {...props} />
+    <HeaderLayout {...headerProps} />
     <main class="max-w-prose mx-auto xl:max-w-[80ch]">
       <slot />
     </main>

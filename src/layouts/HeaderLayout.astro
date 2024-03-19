@@ -2,29 +2,31 @@
 import LanguageIcon from 'astro-heroicons/outline/Language.astro'
 import TagIcon from 'astro-heroicons/outline/Tag.astro'
 import UserIcon from 'astro-heroicons/outline/User.astro'
-import { join } from 'node:path'
-import { defaultLang, languages, type Lang } from '../utils/article'
-import { hasTranslation } from '../utils/i18n'
+import {
+  articleHasTranslation,
+  getArticlePath,
+  getRootPath,
+  languages,
+  type Language,
+} from '../utils/i18n'
 
-interface Props {
-  currentLang: Lang
-  id: string | null
+export interface Props {
+  currentLanguage: Language
+  id?: string
 }
 
-const { currentLang, id } = Astro.props
+const { currentLanguage, id } = Astro.props
 
-function getTranslationLink(lang: Lang) {
-  const rootPath = `/${lang !== defaultLang ? lang : ''}`
-  if (id === null || !hasTranslation(id, lang)) {
-    return rootPath
-  }
-  return join(rootPath, id)
+async function getTranslationPath(language: Language, id?: string) {
+  return id !== undefined && (await articleHasTranslation(id, language))
+    ? getArticlePath(id, language)
+    : getRootPath(language)
 }
 ---
 
 <header class="p-4 flex justify-between items-center">
   <a
-    href={currentLang === defaultLang ? '/' : `/${currentLang}`}
+    href={getRootPath(currentLanguage)}
     lang="en-US"
     class="text-xl font-serif font-bold">Daniel’s Blog</a
   >
@@ -37,14 +39,16 @@ function getTranslationLink(lang: Lang) {
         onchange="location.assign(this.value)"
       >
         {
-          Object.entries(languages).map(([lang, label]) => (
-            <option
-              value={getTranslationLink(lang as Lang)}
-              selected={lang === currentLang}
-            >
-              {label}
-            </option>
-          ))
+          await Promise.all(
+            languages.map(async (language) => (
+              <option
+                value={await getTranslationPath(language, id)}
+                selected={language.lang === currentLanguage.lang}
+              >
+                {language.label}
+              </option>
+            ))
+          )
         }
       </select>
     </label>

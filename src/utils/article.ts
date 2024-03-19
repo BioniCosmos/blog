@@ -1,43 +1,34 @@
 import type { MarkdownInstance, PaginateFunction } from 'astro'
 import { getCollection, type CollectionEntry } from 'astro:content'
-import { basename, join } from 'node:path'
+import { basename } from 'node:path'
 import type { Image } from '../content/config'
+import { getArticlePath, getPagePath, languages, type Language } from './i18n'
 
 export async function getArticles() {
   if (articles === undefined) {
-    const untranslatedArticles = await Promise.all(
-      langs.map(langWithLocalArticles)
+    articles = await Promise.all(
+      languages.map(async (language) => ({
+        language,
+        articles: await getLocalArticles(language),
+      }))
     )
-    articles = Object.fromEntries(untranslatedArticles) as any
-    const translatedArticles = untranslatedArticles.map(
-      ([lang, localArticles]) => [
-        lang,
-        localArticles.map((localArticle) =>
-          addTranslations(localArticle, lang)
-        ),
-      ]
-    )
-    articles = Object.fromEntries(translatedArticles)
   }
-  return articles!
+  return articles
 }
 
-export function addLang([lang, page]: [Lang, ReturnType<PaginateFunction>]) {
-  return page.map(({ params, props }) => ({
+export function addLanguage({
+  language,
+  pages,
+}: {
+  language: Language
+  pages: ReturnType<PaginateFunction>
+}) {
+  return pages.map(({ params, props }) => ({
     params: {
-      page: join(
-        lang !== defaultLang ? `/${lang}` : '',
-        `/${params.page ?? ''}`
-      ),
+      page: getPagePath(params.page, language),
     },
-    props: { ...props, lang },
+    props: { ...props, language },
   }))
-}
-
-export function queryArticlesById(id: string) {
-  return Object.values(articles!)
-    .flat()
-    .filter((article) => article.id === id)
 }
 
 export interface Article {
@@ -49,16 +40,12 @@ export interface Article {
   abstract: string
   image: Image
   nav: Nav
-  translations: Translations
-  lang: Lang
 }
 
 export interface Nav {
   prev: Article | null
   next: Article | null
 }
-
-export type Translations = Record<Lang, boolean>
 
 class DateTime {
   date: string
@@ -73,15 +60,9 @@ class DateTime {
   }
 }
 
-type BaseArticle = Omit<Article, 'nav' | 'translations'>
-type UntranslatedArticle = Omit<Article, 'translations'>
+type BaseArticle = Omit<Article, 'nav'>
 
-export const languages = { zh: '中文', en: 'English' } as const
-export const langs = Object.keys(languages) as Lang[]
-export const defaultLang: Lang = 'zh'
-export type Lang = keyof typeof languages
-
-function render(lang: Lang) {
+export function render(language: Language) {
   return async (article: CollectionEntry<'articles'>): Promise<BaseArticle> => {
     const {
       Content,
@@ -92,15 +73,11 @@ function render(lang: Lang) {
     const title = headings.find(({ depth }) => depth === 1)?.text ?? ''
     const image = article.data.image
 
-    function parseFilePath(filePath: string): {
-      id: string
-      path: string
-      dateTime: DateTime
-    } {
+    function parseFilePath(filePath: string) {
       const [dateTime = '', path = ''] = basename(filePath, '.md').split('_')
       return {
         id: path,
-        path: join(lang !== defaultLang ? `/${lang}` : '', `/${path}`),
+        path: getArticlePath(path, language),
         dateTime: new DateTime(dateTime),
       }
     }
@@ -111,7 +88,6 @@ function render(lang: Lang) {
       Content,
       abstract,
       image,
-      lang,
     }
   }
 }
@@ -132,7 +108,7 @@ function addNav(
   article: BaseArticle,
   i: number,
   articles: BaseArticle[]
-): UntranslatedArticle {
+): Article {
   const nav = {
     prev: i > 0 ? articles[i - 1]! : null,
     next: i < articles.length - 1 ? articles[i + 1]! : null,
@@ -140,35 +116,19 @@ function addNav(
   return { ...article, nav }
 }
 
-function addTranslations(
-  article: UntranslatedArticle,
-  currentLang: Lang
-): Article {
-  return {
-    ...article,
-    translations: Object.fromEntries(
-      langs
-        .filter((lang) => lang !== currentLang)
-        .map((lang) => [
-          lang,
-          articles![lang].find(
-            (localArticle) => localArticle.id === article.id
-          ) !== undefined,
-        ])
-    ) as Translations,
-  }
-}
-
-async function langWithLocalArticles(lang: Lang) {
-  return [lang, await getLocalArticles(lang)] as [Lang, UntranslatedArticle[]]
-}
-
-async function getLocalArticles(lang: Lang): Promise<UntranslatedArticle[]> {
+async function getLocalArticles(language: Language): Promise<Article[]> {
   const localCollection = await getCollection('articles', ({ id }) =>
-    id.startsWith(`${lang}/`)
+    id.startsWith(`${language.lang}/`)
   )
-  const renderedArticles = await Promise.all(localCollection.map(render(lang)))
+  const renderedArticles = await Promise.all(
+    localCollection.map(render(language))
+  )
   return renderedArticles.toSorted(compareDateTime).map(addNav).toReversed()
 }
 
-let articles: Record<Lang, Article[]> | undefined
+interface LanguageArticles {
+  language: Language
+  articles: Article[]
+}
+
+let articles: LanguageArticles[] | undefined

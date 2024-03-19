@@ -3,15 +3,15 @@ import type { GetStaticPaths, InferGetStaticPropsType } from 'astro'
 import { Image } from 'astro:assets'
 import Navigator from '../components/Navigator.astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
-import { getArticles, type Article, type Lang } from '../utils/article'
+import { getArticles } from '../utils/article'
 
 export const getStaticPaths = (async () => {
-  const articles = Object.entries(await getArticles()) as [Lang, Article[]][]
+  const articles = await getArticles()
   return articles
-    .map(([lang, articles]) =>
+    .map(({ language, articles }) =>
       articles.map((article) => ({
         params: { article: article.path },
-        props: { ...article, lang },
+        props: { ...article, language },
       }))
     )
     .flat()
@@ -19,10 +19,10 @@ export const getStaticPaths = (async () => {
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
-const { image, Content, nav, title, lang, id, translations } = Astro.props
+const { image, Content, nav, title, language, id } = Astro.props
 ---
 
-<BaseLayout {title} currentLang={lang} id={id} translations={translations}>
+<BaseLayout {title} currentLanguage={language} id={id}>
   {image !== undefined && <Image src={image} alt="" />}
   <article
     class="prose prose-h1:font-bold prose-figure:flex prose-figure:flex-col prose-figure:items-center max-w-none p-4 sm:p-6 md:pt-8"
