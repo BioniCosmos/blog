@@ -21,7 +21,7 @@ type Props = { page: Page<Article>; language: Language }
 const { page, language } = Astro.props
 ---
 
-<BaseLayout currentLanguage={language}>
+<BaseLayout {language}>
   {
     page.data.map((article) => (
       <div class="px-4 sm:px-6 my-6">

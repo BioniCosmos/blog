@@ -12,6 +12,7 @@ import { openExternalLinksInNewTab } from './src/utils/link'
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://moecm.com',
   integrations: [tailwind()],
   markdown: {
     remarkPlugins: [abstract, extractRefInImageCaption, remarkMath],

@@ -1,27 +1,59 @@
 ---
+import { SEO } from 'astro-seo'
 import ReturnButton from '../components/ReturnButton.astro'
 import '../styles/font-han.css'
+import type { Article } from '../utils/article'
+import type { Language } from '../utils/i18n'
 import FooterLayout from './FooterLayout.astro'
-import HeaderLayout, { type Props as HeaderProps } from './HeaderLayout.astro'
+import HeaderLayout from './HeaderLayout.astro'
 
-type Props = { title?: string } & HeaderProps
+interface Props {
+  language: Language
+  article?: Article
+}
 
-const { title, ...headerProps } = Astro.props
+const { language, article } = Astro.props
 
 function getTitle(base: string) {
-  return title?.concat(` | ${base}`) ?? base
+  return article?.title?.concat(` | ${base}`) ?? base
 }
 ---
 
-<html>
+<html lang={language.lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>{getTitle('Daniel’s Blog')}</title>
     <link rel="icon" href="/images/logo.png" />
+    <SEO
+      title={getTitle('Daniel’s Blog')}
+      description="Here’s BioniCosmos."
+      openGraph={{
+        basic: {
+          title: getTitle('Daniel’s Blog'),
+          type: article !== undefined ? 'article' : 'website',
+          image:
+            Astro.url.origin +
+            (article?.image !== undefined
+              ? article.image.src
+              : '/images/og-image.png'),
+        },
+        optional: {
+          description: article?.abstract,
+          locale: language.lang,
+          siteName: 'Daniel’s Blog',
+        },
+        article: {
+          publishedTime:
+            article !== undefined
+              ? new Date(article.dateTime.toString()).toISOString()
+              : undefined,
+          authors: article !== undefined ? ['Daniel Ding'] : undefined,
+        },
+      }}
+    />
   </head>
   <body>
-    <HeaderLayout {...headerProps} />
+    <HeaderLayout currentLanguage={language} id={article?.id} />
     <main class="max-w-prose mx-auto xl:max-w-[80ch]">
       <slot />
     </main>

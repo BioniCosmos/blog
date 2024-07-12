@@ -12,17 +12,17 @@ export const getStaticPaths = (async () => {
       articles.map((article) => ({
         params: { article: article.path },
         props: { ...article, language },
-      }))
+      })),
     )
     .flat()
 }) satisfies GetStaticPaths
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
-const { image, Content, nav, title, language, id } = Astro.props
+const { image, Content, nav, language } = Astro.props
 ---
 
-<BaseLayout {title} currentLanguage={language} id={id}>
+<BaseLayout article={Astro.props} {language}>
   {image !== undefined && <Image src={image} alt="" />}
   <article
     class="prose prose-h1:font-bold prose-figure:flex prose-figure:flex-col prose-figure:items-center max-w-none p-4 sm:p-6 md:pt-8"
