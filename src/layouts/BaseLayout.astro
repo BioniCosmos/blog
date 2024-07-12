@@ -6,6 +6,8 @@ import type { Article } from '../utils/article'
 import type { Language } from '../utils/i18n'
 import FooterLayout from './FooterLayout.astro'
 import HeaderLayout from './HeaderLayout.astro'
+import { fromHtml } from 'hast-util-from-html'
+import { toText } from 'hast-util-to-text'
 
 interface Props {
   language: Language
@@ -17,6 +19,13 @@ const { language, article } = Astro.props
 function getTitle(base: string) {
   return article?.title?.concat(` | ${base}`) ?? base
 }
+
+const siteName = 'Daniel’s Blog'
+const title = getTitle(siteName)
+const description =
+  article?.abstract !== undefined
+    ? toText(fromHtml(article.abstract))
+    : 'Here’s BioniCosmos.'
 ---
 
 <html lang={language.lang}>
@@ -25,11 +34,11 @@ function getTitle(base: string) {
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" href="/images/logo.png" />
     <SEO
-      title={getTitle('Daniel’s Blog')}
-      description="Here’s BioniCosmos."
+      {title}
+      {description}
       openGraph={{
         basic: {
-          title: getTitle('Daniel’s Blog'),
+          title,
           type: article !== undefined ? 'article' : 'website',
           image:
             Astro.url.origin +
@@ -37,11 +46,7 @@ function getTitle(base: string) {
               ? article.image.src
               : '/images/og-image.png'),
         },
-        optional: {
-          description: article?.abstract,
-          locale: language.lang,
-          siteName: 'Daniel’s Blog',
-        },
+        optional: { description, locale: language.lang, siteName },
         article: {
           publishedTime:
             article !== undefined
