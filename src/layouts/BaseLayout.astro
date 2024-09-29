@@ -1,13 +1,13 @@
 ---
 import { SEO } from 'astro-seo'
+import { fromHtml } from 'hast-util-from-html'
+import { toText } from 'hast-util-to-text'
 import ReturnButton from '../components/ReturnButton.astro'
 import '../styles/font-han.css'
 import type { Article } from '../utils/article'
 import type { Language } from '../utils/i18n'
 import FooterLayout from './FooterLayout.astro'
 import HeaderLayout from './HeaderLayout.astro'
-import { fromHtml } from 'hast-util-from-html'
-import { toText } from 'hast-util-to-text'
 
 interface Props {
   language: Language
@@ -66,3 +66,24 @@ const description =
     <ReturnButton />
   </body>
 </html>
+
+<script is:inline>
+  if (navigator.userAgent.includes('MicroMessenger')) {
+    document.addEventListener('DOMContentLoaded', () => {
+      document.open()
+      document.write(`<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Forbidden</title>
+  </head>
+  <body>
+    <h2>Please use other browsers to open this page.</h2>
+    <h2>请使用其他浏览器打开此页面。</h2>
+  </body>
+</html>`)
+      document.close()
+    })
+  }
+</script>
