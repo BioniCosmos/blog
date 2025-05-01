@@ -144,7 +144,7 @@ newtype Point = Point (Int, Int)
 
 ## `type`
 
-`type` 就很简单了，它只是用来定义单纯的类型别名。
+`type` 就很简单了，它只是用来定义单纯的类型（构造器）别名，具体是类型本身还是构造器取决于别名本身是什么。
 
 ```haskell
 type Point = (Int, Int)
