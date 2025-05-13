@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config'
 import serviceWorker from 'astrojs-service-worker'
 import rehypeMathjax from 'rehype-mathjax'
 import remarkMath from 'remark-math'
+import type { GenerateSWOptions } from 'workbox-build'
 import { abstract } from './src/utils/abstract'
 import {
   extractRefInImageCaption,
@@ -14,7 +15,20 @@ import { openExternalLinksInNewTab } from './src/utils/link'
 // https://astro.build/config
 export default defineConfig({
   site: 'https://moecm.com',
-  integrations: [serviceWorker()],
+  integrations: [
+    serviceWorker({
+      workbox: {
+        manifestTransforms: [
+          (entries) => ({
+            manifest: entries.map(({ url, ...entry }) => ({
+              ...entry,
+              url: url.replace(/\/index\.html$/, ''),
+            })),
+          }),
+        ],
+      } as GenerateSWOptions,
+    }),
+  ],
   markdown: {
     remarkPlugins: [abstract, extractRefInImageCaption, remarkMath],
     rehypePlugins: [

@@ -10,16 +10,18 @@ import ChevronUpIcon from 'astro-heroicons/outline/ChevronUp.astro'
 </button>
 
 <script>
-  const returnButton = document.querySelector('#return')
-  returnButton?.addEventListener('click', () => {
-    scrollTo({ top: 0, behavior: 'smooth' })
-  })
+  document.addEventListener('astro:page-load', () => {
+    const returnButton = document.querySelector('#return')
+    returnButton?.addEventListener('click', () => {
+      scrollTo({ top: 0, behavior: 'smooth' })
+    })
 
-  document.addEventListener('scroll', () => {
-    if (document.documentElement.scrollTop > 100) {
-      returnButton?.classList.remove('hidden')
-    } else {
-      returnButton?.classList.add('hidden')
-    }
+    document.addEventListener('scroll', () => {
+      if (document.documentElement.scrollTop > 100) {
+        returnButton?.classList.remove('hidden')
+      } else {
+        returnButton?.classList.add('hidden')
+      }
+    })
   })
 </script>

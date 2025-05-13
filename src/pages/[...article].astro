@@ -1,6 +1,7 @@
 ---
 import type { GetStaticPaths, InferGetStaticPropsType } from 'astro'
 import { Image } from 'astro:assets'
+import 'medium-zoom/dist/style.css'
 import Navigator from '../components/Navigator.astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import { getArticles } from '../utils/article'
@@ -35,5 +36,7 @@ const { image, Content, nav, language } = Astro.props
 <script>
   import mediumZoom from 'medium-zoom'
 
-  mediumZoom('img', { background: '#000000bf' })
+  document.addEventListener('astro:page-load', async () => {
+    mediumZoom('img', { background: '#000000bf' })
+  })
 </script>

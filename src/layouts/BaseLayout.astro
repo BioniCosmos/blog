@@ -35,6 +35,11 @@ const description =
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" href="/images/logo.png" />
+    <script is:inline>
+      if (navigator.userAgent.includes('MicroMessenger')) {
+        location.replace('/404.html')
+      }
+    </script>
     <SEO
       {title}
       {description}
@@ -69,24 +74,3 @@ const description =
     <ReturnButton />
   </body>
 </html>
-
-<script is:inline>
-  if (navigator.userAgent.includes('MicroMessenger')) {
-    document.addEventListener('DOMContentLoaded', () => {
-      document.open()
-      document.write(`<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Forbidden</title>
-  </head>
-  <body>
-    <h2>Please use other browsers to open this page.</h2>
-    <h2>请使用其他浏览器打开此页面。</h2>
-  </body>
-</html>`)
-      document.close()
-    })
-  }
-</script>

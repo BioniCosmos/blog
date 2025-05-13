@@ -28,7 +28,8 @@
     "unist-builder": "^4.0.0",
     "unist-util-find": "^3.0.0",
     "unist-util-find-all-before": "^5.0.0",
-    "unist-util-visit": "^5.0.0"
+    "unist-util-visit": "^5.0.0",
+    "workbox-build": "^6.6.0"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",

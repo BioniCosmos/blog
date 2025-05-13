@@ -90,6 +90,9 @@ importers:
       unist-util-visit:
         specifier: ^5.0.0
         version: 5.0.0
+      workbox-build:
+        specifier: ^6.6.0
+        version: 6.6.0
 
 packages:
 
