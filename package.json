@@ -35,6 +35,7 @@
     "@tailwindcss/vite": "^4.1.6",
     "astro-heroicons": "^2.1.5",
     "astro-seo": "^0.8.4",
+    "astrojs-service-worker": "^2.0.0",
     "hast-util-from-html": "^2.0.3",
     "hast-util-to-text": "^4.0.2",
     "medium-zoom": "^1.1.0",

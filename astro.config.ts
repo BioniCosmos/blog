@@ -1,5 +1,6 @@
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'astro/config'
+import serviceWorker from 'astrojs-service-worker'
 import rehypeMathjax from 'rehype-mathjax'
 import remarkMath from 'remark-math'
 import { abstract } from './src/utils/abstract'
@@ -13,6 +14,7 @@ import { openExternalLinksInNewTab } from './src/utils/link'
 // https://astro.build/config
 export default defineConfig({
   site: 'https://moecm.com',
+  integrations: [serviceWorker()],
   markdown: {
     remarkPlugins: [abstract, extractRefInImageCaption, remarkMath],
     rehypePlugins: [
