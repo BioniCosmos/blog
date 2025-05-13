@@ -1,7 +1,11 @@
 import type { MarkdownInstance, PaginateFunction } from 'astro'
-import { getCollection, type CollectionEntry } from 'astro:content'
+import {
+  render as collectionRender,
+  getCollection,
+  type CollectionEntry,
+} from 'astro:content'
 import { basename } from 'node:path'
-import type { Image } from '../content/config'
+import type { Image } from '../content.config'
 import { getArticlePath, getPagePath, languages, type Language } from './i18n'
 
 export async function getArticles() {
@@ -68,7 +72,7 @@ export function render(language: Language) {
       Content,
       headings,
       remarkPluginFrontmatter: { abstract },
-    } = await article.render()
+    } = await collectionRender(article)
 
     const title = headings.find(({ depth }) => depth === 1)?.text ?? ''
     const image = article.data.image
@@ -83,7 +87,7 @@ export function render(language: Language) {
     }
 
     return {
-      ...parseFilePath(article.id),
+      ...parseFilePath(article.filePath!),
       title,
       Content,
       abstract,

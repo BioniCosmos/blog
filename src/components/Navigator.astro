@@ -17,7 +17,7 @@ const { nav } = Astro.props
         href={nav.prev.path}
         class="flex gap-1 basis-1/2 items-center justify-start text-start"
       >
-        <ChevronLeftIcon class="flex-shrink-0 size-5" />
+        <ChevronLeftIcon class="shrink-0 size-5" />
         <div>{nav.prev.title}</div>
       </a>
     ) : (
@@ -31,7 +31,7 @@ const { nav } = Astro.props
         class="flex gap-1 basis-1/2 items-center justify-end text-end"
       >
         <div>{nav.next.title}</div>
-        <ChevronRightIcon class="flex-shrink-0 size-5" />
+        <ChevronRightIcon class="shrink-0 size-5" />
       </a>
     ) : (
       <div />

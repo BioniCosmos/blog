@@ -1,4 +1,4 @@
-import tailwind from '@astrojs/tailwind'
+import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'astro/config'
 import rehypeMathjax from 'rehype-mathjax'
 import remarkMath from 'remark-math'
@@ -13,7 +13,6 @@ import { openExternalLinksInNewTab } from './src/utils/link'
 // https://astro.build/config
 export default defineConfig({
   site: 'https://moecm.com',
-  integrations: [tailwind()],
   markdown: {
     remarkPlugins: [abstract, extractRefInImageCaption, remarkMath],
     rehypePlugins: [
@@ -25,5 +24,8 @@ export default defineConfig({
     shikiConfig: {
       theme: 'dark-plus',
     },
+  },
+  vite: {
+    plugins: [tailwindcss()],
   },
 })
