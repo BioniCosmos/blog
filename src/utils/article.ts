@@ -4,7 +4,7 @@ import {
   getCollection,
   type CollectionEntry,
 } from 'astro:content'
-import { basename } from 'node:path'
+import { dirname } from 'node:path'
 import type { Image } from '../content.config'
 import { getArticlePath, getPagePath, languages, type Language } from './i18n'
 
@@ -78,7 +78,10 @@ export function render(language: Language) {
     const image = article.data.image
 
     function parseFilePath(filePath: string) {
-      const [dateTime = '', path = ''] = basename(filePath, '.md').split('_')
+      const [dateTime = '', path = ''] = dirname(filePath)
+        .split('/')
+        .at(-1)!
+        .split('_')
       return {
         id: path,
         path: getArticlePath(path, language),
