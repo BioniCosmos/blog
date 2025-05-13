@@ -1,5 +1,6 @@
 ---
 import { SEO } from 'astro-seo'
+import { ClientRouter } from 'astro:transitions'
 import { fromHtml } from 'hast-util-from-html'
 import { toText } from 'hast-util-to-text'
 import ReturnButton from '../components/ReturnButton.astro'
@@ -57,6 +58,7 @@ const description =
         },
       }}
     />
+    <ClientRouter />
   </head>
   <body>
     <HeaderLayout currentLanguage={language} id={article?.id} />

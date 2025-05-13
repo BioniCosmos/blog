@@ -45,7 +45,7 @@ async function getTranslationPath(language: Language, id?: string) {
               >
                 {language.label}
               </option>
-            ))
+            )),
           )
         }
       </select>
@@ -57,8 +57,13 @@ async function getTranslationPath(language: Language, id?: string) {
 </header>
 
 <script>
-  const selector = document.querySelector('#language-selector')
-  selector?.addEventListener('change', (event) => {
-    location.assign((event.target as HTMLSelectElement).value)
+  import { navigate } from 'astro:transitions/client'
+
+  document.addEventListener('astro:page-load', () => {
+    document
+      .querySelector('#language-selector')
+      ?.addEventListener('change', (event) => {
+        navigate((event.target as HTMLSelectElement).value)
+      })
   })
 </script>
