@@ -144,8 +144,6 @@ const req = await request()
 
 ![Wind-Comment Android 版](./wind-comment-android-screenshot.webp)
 
-[源码与幻灯片](../files/wind-comment-compose.zip)
-
 [^1]: [Jetpack Compose 界面应用开发工具包 - Android 开发者  |  Android Developers](https://developer.android.com/jetpack/compose)
 [^2]: [为什么采用 Compose  |  Jetpack Compose  |  Android Developers](https://developer.android.com/jetpack/compose/why-adopt)
 [^3]: [Jetpack Compose 从入门到实战 - 1. Jetpack Compose 是什么？_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1Nd4y1S7HR/)

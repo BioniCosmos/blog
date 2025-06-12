@@ -424,7 +424,7 @@ Hexo 第一次 commit 的时间位于 2012 年，而那一年的 12 月 21 日�
 > 「归去来兮，请息交以绝游。<br>
 > 「世与我而相违，复驾言兮焉求？」
 >
-> ⸺[归去来兮辞](https://zh.wikisource.org/zh-hans/歸去來辭並序)
+> ⸺[《归去来兮辞》](https://zh.wikisource.org/zh-hans/歸去來辭並序)
 
 ### 叁
 

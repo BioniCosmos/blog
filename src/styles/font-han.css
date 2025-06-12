@@ -7,7 +7,7 @@
     U+3100-312F, U+3190-31EF, U+2E3A, U+2013, U+2014, U+2026;
   src: local(Noto Sans CJK SC Thin), local(Source Han Sans SC ExtraLight),
     local(Noto Sans SC Thin), local(Source Han Sans CN ExtraLight),
-    local(PingFang SC Ultralight);
+    local(PingFang SC Ultralight), local(Microsoft YaHei Light);
 }
 
 @font-face {
@@ -19,7 +19,7 @@
     U+3100-312F, U+3190-31EF, U+2E3A, U+2013, U+2014, U+2026;
   src: local(Noto Sans CJK SC Light), local(Source Han Sans SC Light),
     local(Noto Sans SC Light), local(Source Han Sans CN Light),
-    local(PingFang SC Thin);
+    local(PingFang SC Thin), local(Microsoft YaHei Light);
 }
 
 @font-face {
@@ -31,7 +31,7 @@
     U+3100-312F, U+3190-31EF, U+2E3A, U+2013, U+2014, U+2026;
   src: local(Noto Sans CJK SC DemiLight), local(Source Han Sans SC Normal),
     local(Noto Sans SC DemiLight), local(Source Han Sans CN Normal),
-    local(PingFang SC Light);
+    local(PingFang SC Light), local(Microsoft YaHei Light);
 }
 
 @font-face {
@@ -41,8 +41,9 @@
     U+F900-FAFF, U+FF??, U+1F200-1F259, U+1F266-1F2FF, U+20000-2A6DF,
     U+2A700-2B73F, U+2B740-2B81F, U+2B820-2CEAF, U+2F800-2FA1F, U+2F00-303F,
     U+3100-312F, U+3190-31EF, U+2E3A, U+2013, U+2014, U+2026;
-  src: local(Noto Sans CJK SC Regular), local(Source Han Sans SC),
-    local(Noto Sans SC), local(Source Han Sans CN), local(PingFang SC Regular);
+  src: local(Noto Sans CJK SC), local(SourceHanSansSC-Regular),
+    local(Noto Sans SC), local(SourceHanSansCN-Regular),
+    local(PingFang SC Regular), local(Microsoft YaHei);
 }
 
 @font-face {
@@ -54,7 +55,7 @@
     U+3100-312F, U+3190-31EF, U+2E3A, U+2013, U+2014, U+2026;
   src: local(Noto Sans CJK SC Medium), local(Source Han Sans SC Medium),
     local(Noto Sans SC Medium), local(Source Han Sans CN Medium),
-    local(PingFang SC Medium);
+    local(PingFang SC Medium), local(Microsoft YaHei);
 }
 
 @font-face {
@@ -64,9 +65,9 @@
     U+F900-FAFF, U+FF??, U+1F200-1F259, U+1F266-1F2FF, U+20000-2A6DF,
     U+2A700-2B73F, U+2B740-2B81F, U+2B820-2CEAF, U+2F800-2FA1F, U+2F00-303F,
     U+3100-312F, U+3190-31EF, U+2E3A, U+2013, U+2014, U+2026;
-  src: local(Noto Sans CJK SC Medium), local(Source Han Sans SC Medium),
-    local(Noto Sans SC Medium), local(Source Han Sans CN Medium),
-    local(PingFang SC Medium), local(PingFang SC Semibold);
+  src: local(Noto Sans CJK SC Bold), local(Source Han Sans SC Bold),
+    local(Noto Sans SC Bold), local(Source Han Sans CN Bold),
+    local(PingFang SC Semibold), local(Microsoft YaHei Bold);
 }
 
 @font-face {
@@ -77,7 +78,20 @@
     U+2A700-2B73F, U+2B740-2B81F, U+2B820-2CEAF, U+2F800-2FA1F, U+2F00-303F,
     U+3100-312F, U+3190-31EF, U+2E3A, U+2013, U+2014, U+2026;
   src: local(Noto Sans CJK SC Bold), local(Source Han Sans SC Bold),
-    local(Noto Sans SC Bold), local(Source Han Sans CN Bold);
+    local(Noto Sans SC Bold), local(Source Han Sans CN Bold),
+    local(PingFang SC Semibold), local(Microsoft YaHei Bold);
+}
+
+@font-face {
+  font-family: Han;
+  font-weight: 800;
+  unicode-range: U+4E00-9FFF, U+3400-4DBF, U+002F, U+00B7, U+2E80-2EFF,
+    U+F900-FAFF, U+FF??, U+1F200-1F259, U+1F266-1F2FF, U+20000-2A6DF,
+    U+2A700-2B73F, U+2B740-2B81F, U+2B820-2CEAF, U+2F800-2FA1F, U+2F00-303F,
+    U+3100-312F, U+3190-31EF, U+2E3A, U+2013, U+2014, U+2026;
+  src: local(Noto Sans CJK SC Black), local(Source Han Sans SC Heavy),
+    local(Noto Sans SC Black), local(Source Han Sans CN Heavy),
+    local(PingFang SC Semibold), local(Microsoft YaHei Bold);
 }
 
 @font-face {
@@ -88,5 +102,6 @@
     U+2A700-2B73F, U+2B740-2B81F, U+2B820-2CEAF, U+2F800-2FA1F, U+2F00-303F,
     U+3100-312F, U+3190-31EF, U+2E3A, U+2013, U+2014, U+2026;
   src: local(Noto Sans CJK SC Black), local(Source Han Sans SC Heavy),
-    local(Noto Sans SC Black), local(Source Han Sans CN Heavy);
+    local(Noto Sans SC Black), local(Source Han Sans CN Heavy),
+    local(PingFang SC Semibold), local(Microsoft YaHei Bold);
 }

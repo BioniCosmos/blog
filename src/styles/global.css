@@ -1,19 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: Han, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-mono: "Cascadia Code", ui-monospace, SFMono-Regular, Menlo, Monaco,
-    Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-sans: Han, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono: "Cascadia Code NF", "Cascadia Mono NF", "Cascadia Code",
+    "Cascadia Mono", "Cascadia Code PL", "Cascadia Mono PL", ui-monospace,
+    SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+    monospace;
 }
 
 @plugin "@tailwindcss/typography";
-
-blockquote {
-  font-style: normal;
-  quotes: none;
-}
+@config "./tailwind.config.ts";
 
 [data-footnote-ref]::before {
   content: "[";
@@ -23,16 +20,6 @@ blockquote {
   content: "]";
 }
 
-img,
-iframe {
-  margin-left: auto;
-  margin-right: auto;
-}
-
 mjx-container[jax="SVG"] > svg {
   display: inline;
-}
-
-code {
-  font-variant-ligatures: none;
 }
