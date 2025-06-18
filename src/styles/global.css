@@ -23,3 +23,9 @@
 mjx-container[jax="SVG"] > svg {
   display: inline;
 }
+
+@media (prefers-color-scheme: dark) {
+  html {
+    background-color: #000;
+  }
+}

@@ -10,7 +10,9 @@ interface Props {
 const { nav } = Astro.props
 ---
 
-<nav class="flex justify-between items-center py-8 px-2 text-sm">
+<nav
+  class="flex justify-between items-center py-8 px-2 text-sm dark:text-gray-300"
+>
   {
     nav.prev !== null ? (
       <a

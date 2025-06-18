@@ -25,10 +25,27 @@ const { page, language } = Astro.props
   {
     page.data.map((article) => (
       <div class="px-4 sm:px-6 my-6">
-        <h2 class="text-gray-900 text-2xl font-bold">
+        <h2 class="text-gray-900 text-2xl font-bold dark:text-white">
           <a href={article.path}>{article.title}</a>
         </h2>
-        <div class="prose max-w-none mt-1" set:html={article.abstract} />
+        <div
+          class:list={[
+            `prose`,
+            `prose-h1:font-bold`,
+            `prose-figure:flex`,
+            `prose-figure:flex-col`,
+            `prose-figure:items-center`,
+            `prose-strong:font-bold`,
+            `prose-code:before:content-['']`,
+            `prose-code:after:content-['']`,
+            `prose-blockquote:not-italic`,
+            `prose-img:mx-auto`,
+            `dark:prose-invert`,
+            `max-w-none`,
+            `mt-1`,
+          ]}
+          set:html={article.abstract}
+        />
         <div class="text-gray-400 text-sm mt-2">
           <time>{article.dateTime.date}</time>
         </div>

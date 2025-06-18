@@ -24,10 +24,11 @@ async function getTranslationPath(language: Language, id?: string) {
 ---
 
 <header class="p-4 flex justify-between items-center">
-  <a href={getRootPath(currentLanguage)} class="text-xl font-serif font-bold"
-    >Daniel’s Blog</a
+  <a
+    href={getRootPath(currentLanguage)}
+    class="text-xl font-serif font-bold dark:text-white">Daniel’s Blog</a
   >
-  <nav class="flex justify-center items-center gap-4">
+  <nav class="flex justify-center items-center gap-4 dark:text-gray-300">
     <label class="relative">
       <LanguageIcon class="size-6" />
       <select
