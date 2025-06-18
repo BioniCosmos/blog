@@ -1,6 +1,5 @@
 ---
 import LanguageIcon from 'astro-heroicons/outline/Language.astro'
-import TagIcon from 'astro-heroicons/outline/Tag.astro'
 import UserIcon from 'astro-heroicons/outline/User.astro'
 import {
   articleHasTranslation,
@@ -29,7 +28,6 @@ async function getTranslationPath(language: Language, id?: string) {
     >Daniel’s Blog</a
   >
   <nav class="flex justify-center items-center gap-4">
-    <a href="/topics/" aria-label="Topics"><TagIcon class="size-6" /></a>
     <label class="relative">
       <LanguageIcon class="size-6" />
       <select
