@@ -54,13 +54,12 @@ const description =
               : '/images/og-image.png'),
         },
         optional: { description, locale: language.lang, siteName },
-        article: {
-          publishedTime:
-            article !== undefined
-              ? new Date(article.dateTime.toString()).toISOString()
-              : undefined,
-          authors: article !== undefined ? ['Daniel Ding'] : undefined,
-        },
+        ...(article && {
+          article: {
+            publishedTime: new Date(article.dateTime.toString()).toISOString(),
+            authors: ['Daniel Ding'],
+          },
+        }),
       }}
     />
     <ClientRouter />
@@ -72,5 +71,10 @@ const description =
     </main>
     <FooterLayout />
     <ReturnButton />
+    <script>
+      if (import.meta.env.PROD) {
+        await navigator.serviceWorker.register('/sw.js', { type: 'module' })
+      }
+    </script>
   </body>
 </html>
